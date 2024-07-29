@@ -30,20 +30,20 @@ def update_profile_signal(sender, instance, created, **kwargs):
 
 # general order
 class Order(models.Model):
-     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-     fullname = models.CharField(max_length=300)
-     email = models.EmailField(max_length=200)
-     address = models.TextField(max_length=150000)
-     total_paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
-     date = models.DateTimeField(auto_now_add=True)
-     phone = models.CharField(max_length=200)
-     cupon_used = models.CharField(max_length=200, default="Cupon code was not used", null=True)
-     payment_methode = models.CharField(max_length=200, null=True)
-     shipped = models.BooleanField(default=False)
-     shipped_date = models.DateTimeField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    fullname = models.CharField(max_length=300)
+    email = models.EmailField(max_length=200)
+    address = models.TextField(max_length=150000)
+    total_paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateTimeField(auto_now_add=True)  # Automatically set on creation
+    phone = models.CharField(max_length=200)
+    cupon_used = models.CharField(max_length=200, default="Cupon code was not used", null=True)
+    payment_methode = models.CharField(max_length=200, null=True)
+    shipped = models.BooleanField(default=False)
+    shipped_date = models.DateTimeField(blank=True, null=True)  # Optional field for tracking shipment date
 
-     def __str__(self) -> str:
-         return f'Order -- {str(self.fullname)} -- {str(self.id)}'
+    def __str__(self):
+        return f'Order by {self.fullname} on {self.date}'
      
 
 #automatically add shipping date

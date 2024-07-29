@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 
 def home(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('id')  # Order products by id (or another field)
     paginator = Paginator(products, 5)  # Show 5 products per page
 
     page_number = request.GET.get('page')
@@ -17,6 +17,7 @@ def home(request):
         'page_obj': page_obj
     }
     return render(request, 'home.html', context)
+
 
 def load_products(request):
     products = Product.objects.all()

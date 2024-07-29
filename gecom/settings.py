@@ -15,11 +15,11 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kharikhatrans-production.up.railway.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://mtecom.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://kharikhatrans-production.up.railway.app']
 
 # Application definition
 
