@@ -56,8 +56,8 @@
                   </td>
                   {% endif %}
                   <td class="product-price" data-title="{% trans 'Price' %}">
-                    {% if product.sale > 0 %} ${{ product.new_price }}
-                    {% else %} ${{ item.price }} {% endif %}
+                    {% if product.sale > 0 %} ₾ {{ product.new_price }}
+                    {% else %} ₾ {{ item.price }} {% endif %}
                   </td>
                   <td class="product-quantity" data-title="{% trans 'Quantity' %}">
                     <div class="quantity">
@@ -166,7 +166,7 @@
               <tr class="total-amount">
                 <th class="fw-600 text-dark-gray alt-font pb-0">{% trans "Total" %}</th>
                 <td class="pb-0" data-title="{% trans 'Total' %}">
-                  <h6 class="d-block fw-700 mb-0 text-dark-gray alt-font" id="sum">${{ summary }}</h6>
+                  <h6 class="d-block fw-700 mb-0 text-dark-gray alt-font" id="sum">₾ {{ summary }}</h6>
                 </td>
               </tr>
             </tbody>

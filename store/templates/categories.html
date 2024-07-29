@@ -71,10 +71,10 @@
                 {% endif %}
                 {% if product.sale > 0 %}
                 <div class="price lh-22 fs-16">
-                  <del>${{ product.price }}</del> ${{ product.new_price }}
+                  <del>₾ {{ product.price }}</del> ₾ {{ product.new_price }}
                 </div>
                 {% else %}
-                <div class="price lh-22 fs-16">${{ product.price }}</div>
+                <div class="price lh-22 fs-16">₾ {{ product.price }}</div>
                 {% endif %}
               </div>
             </div>

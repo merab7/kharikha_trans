@@ -23,10 +23,10 @@
           {% endif %}
           {% if product.sale > 0 %}
           <h6 class="card-text">
-            {% trans "Price" %}: ${{ product.new_price }}
+            {% trans "Price" %}: ₾ {{ product.new_price }}
           </h6>
           {% else %}
-          <h6 class="card-text">{% trans "Price" %}: ${{ product.price }}</h6>
+          <h6 class="card-text">{% trans "Price" %}: ₾ {{ product.price }}</h6>
           {% endif %}
           <h6 class="card-text">{% trans "Size" %}: {{ item.size }}</h6>
           <h6 class="card-text">{% trans "Quantity" %}: {{ item.quantity }}</h6>
@@ -36,7 +36,7 @@
         <h6 class="card-text p-2 text-red">{% trans "Cupon Code" %}: {{ cupon_code }}</h6>
         
         <div class="container p-2 text-success">
-          <h5>{% trans "Sum" %}: ₾{{summary}}</h5>
+          <h5>{% trans "Sum" %}: ₾ {{summary}}</h5>
         </div>
       </div>
     </div>

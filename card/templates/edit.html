@@ -92,11 +92,11 @@
           {% if product_from_model.sale > 0 %}
           <span class="text-dark-gray fs-28 xs-fs-24 fw-700 ls-minus-1px">
             <del class="text-medium-gray me-10px fw-400"
-              >${{ product_from_model.price }}</del
-            >${{ product_from_model.new_price }}
+              >₾ {{ product_from_model.price }}</del
+            >₾ {{ product_from_model.new_price }}
           </span>
           {% else %}
-          <h4>${{ product_from_model.price }}</h4>
+          <h4>₾ {{ product_from_model.price }}</h4>
           {% endif %}
         </div>
         {% if request.LANGUAGE_CODE == 'ka' %}

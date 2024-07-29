@@ -52,21 +52,14 @@ class ProductSize(models.Model):
     quantity = models.IntegerField(default=1)
 
     class Meta:
-        unique_together = ('product', 'size')        
+        unique_together = ('product', 'size') 
 
-
-class Order(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    address = models.CharField(max_length=100, default='', blank=False)
-    phone = models.CharField(max_length=50, blank=False, default='' )
-    order_date = models.DateField(datetime.today())
-    status = models.BooleanField(default=False)
-
-
+    
     def __str__(self) -> str:
-         return self.product    
+         return (f'{self.product}, {self.size}')            
+
+
+
     
 
 
