@@ -15,7 +15,7 @@ environ.Env.read_env()
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kharikhatrans-production.up.railway.app']
 
@@ -88,7 +88,7 @@ DATABASES = {
 }
 
 
-POSTGRES_LOCALLY=True
+POSTGRES_LOCALLY=False
 if env.bool('PRODUCTION') or POSTGRES_LOCALLY:
     DATABASES['default']= dj_database_url.parse(env('DATABASE_URL'))
 
