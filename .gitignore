@@ -1,5 +1,3 @@
-# .gitignore
-
 # Ignore database files
 db.sqlite3
 
@@ -75,7 +73,6 @@ coverage.xml
 cover/
 
 # Translations
-*.mo
 *.pot
 
 # Django stuff:
