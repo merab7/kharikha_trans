@@ -152,10 +152,9 @@ def proc_order(request):
             email = my_shipping['email']
             total_paid = sum(prices)
             phone = my_shipping['phone']
-            per_id = my_shipping['per_id']
             shipping_address = f"{my_shipping['city']}\n{my_shipping['address']}\n{my_shipping['add_information']}\n{my_shipping['zipcode']}"
 
-            set_order = Order(user=user, fullname=fullname, email=email, address=shipping_address, total_paid_amount=total_paid, phone=phone, per_id=per_id)
+            set_order = Order(user=user, fullname=fullname, email=email, address=shipping_address, total_paid_amount=total_paid, phone=phone)
             set_order.save()
 
             order_id = set_order.pk
