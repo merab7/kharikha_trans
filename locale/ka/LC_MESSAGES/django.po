@@ -70,7 +70,7 @@ msgstr "რედაქტირება"
 
 #: card/templates/cart_sum.html:88
 msgid "Confirm Delete"
-msgstr "წაშალების დადასტურება"
+msgstr "წაშlis დადასტურება"
 
 #: card/templates/cart_sum.html:92
 msgid "Are you sure you want to delete"
@@ -152,7 +152,7 @@ msgstr "დიახ"
 
 #: card/templates/cart_sum.html:108
 msgid "Coupon code"
-msgstr "კუპონის კოდი"
+msgstr "ფასდაკლების კოდი"
 
 #: card/templates/cart_sum.html:109
 msgid "Apply"
@@ -271,7 +271,7 @@ msgstr "თქვენ გამოხვედით"
 
 #: customers/templates/logout.html:8
 msgid "Thanks for visiting. See you again soon!"
-msgstr "მადლობა მომსახურებისთვის. გიხდით კიდევ მალე!"
+msgstr "მადლობა სტუმრობისთვის. შეხვედრამდე!"
 
 #: customers/templates/logout.html:10
 msgid "Log In Again"
@@ -367,7 +367,7 @@ msgstr "პროფილის ინფორმაცია"
 
 #: customers/templates/profile.html:44
 msgid "Update your password"
-msgstr "განახლება პაროლის"
+msgstr "პაროლის განახლება"
 
 #: customers/templates/profile.html:55 payment/templates/billing.html:41
 #: payment/templates/ch_out.html:43 payment/templates/ch_out.html:52
@@ -388,11 +388,11 @@ msgstr "დაგავიწყდა პაროლი?"
 
 #: customers/templates/registration/login.html:50
 msgid "Reset"
-msgstr "გადაწერა"
+msgstr "განაახლე პაროლი"
 
 #: customers/templates/reset_password.html:5
 msgid "Password Reset"
-msgstr "პაროლის გადაყენება"
+msgstr "განაახლე პაროლი"
 
 #: customers/templates/reset_password.html:7
 msgid "Forgot your password? Enter your email."
@@ -403,8 +403,8 @@ msgid "Send Email"
 msgstr "გაგზავნა"
 
 #: customers/templates/signup.html:8
-msgid "Sign up Form"
-msgstr "რეგისტრაციის ფორმა"
+msgid "Sign up"
+msgstr "რეგისტრაცია"
 
 #: customers/templates/update_password.html:24
 msgid "update password"
@@ -501,7 +501,7 @@ msgstr "სახელი"
 
 #: payment/forms.py:41
 msgid "Expiration Date"
-msgstr "ამოწურის თარიღი"
+msgstr "ამოწურვის თარიღი"
 
 #: payment/templates/billing.html:11 payment/templates/ch_out.html:10
 msgid "Order Summary"
@@ -511,7 +511,7 @@ msgstr "შეკვეთის რეზიუმე"
 #, fuzzy
 #| msgid "Coupon code"
 msgid "Cupon Code"
-msgstr "კუპონის კოდი"
+msgstr "ფასდაკლების კოდი"
 
 #: payment/templates/billing.html:32 payment/templates/ch_out.html:35
 msgid "Sum"

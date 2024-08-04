@@ -78,11 +78,11 @@
   </head>
   <body data-mobile-nav-style="classic">
     <!-- Start header -->
-    <header>
+    <header class="text-white">
       <nav
-        class="bg-base-color navbar navbar-expand-lg header-light sm-pt-4 "
+        class="bg-black navbar navbar-expand-lg header-light sm-pt-4 text-white"
       >
-        <div class="container-fluid ">
+        <div class="container-fluid bg-black">
           <button
             class="navbar-toggler"
             type="button"
@@ -91,23 +91,23 @@
             aria-controls="navbarNav"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-line"></span>
-            <span class="navbar-toggler-line"></span>
-            <span class="navbar-toggler-line"></span>
-            <span class="navbar-toggler-line"></span>
+            <span class="navbar-toggler-line "></span>
+            <span class="navbar-toggler-line "></span>
+            <span class="navbar-toggler-line "></span>
+            <span class="navbar-toggler-line "></span>
           </button>
 
-          <div >
+          <div class="text-white">
             <div
-              class="collapse navbar-collapse "
+              class="collapse navbar-collapse text-white bg-black"
               id="navbarNav"
             >
               <ul
-                class="navbar-nav alt-font navbar-left justify-content-between"
+                class="navbar-nav alt-font navbar-left justify-content-between text-white"
               >
                 <li class="nav-item">
                   <a
-                    class="nav-link active fs-4"
+                    class="nav-link  fs-4 text-white"
                     aria-current="page"
                     href="{% url 'home' %}"
                     >{% trans "Home" %}</a
@@ -116,69 +116,70 @@
                 <!-- this links appears only when user is home page -->
                 {% if request.resolver_match.url_name == 'home' %}
                 <li class="nav-item">
-                  <a class="nav-link fs-4" href="#categories-section">{% trans "Categories" %}</a
+                  <a class="nav-link fs-4 text-white" href="#categories-section">{% trans "Categories" %}</a
                   >
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link fs-4" href="#products-section">{% trans "Products" %}</a>
+                <li class="nav-item ">
+                  <a class="nav-link fs-4 text-white" href="#products-section">{% trans "Products" %}</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link fs-4" href="#faq">{% trans "FAQ" %}</a>
+                <li class="nav-item ">
+                  <a class="nav-link fs-4 text-white" href="#faq">{% trans "FAQ" %}</a>
                 </li>
                 {% if request.LANGUAGE_CODE == 'en' %}
-                <li class="nav-item">
-                  <a class="nav-link fs-4" href="#contact">{% trans "Contact" %}</a>
+                <li class="nav-item ">
+                  <a class="nav-link fs-4 text-white" href="#contact">{% trans "Contact" %}</a>
                 </li>
                 {% else %}
-                <li class="nav-item">
-                  <a class="nav-link fs-4" href="#contact">{% trans "კონტაქტი" %}</a>
+                <li class="nav-item ">
+                  <a class="nav-link fs-4 text-white" href="#contact">{% trans "კონტაქტი" %}</a>
                 </li>
                 {% endif %}
                 {% endif %}
               </ul>
             </div>
           </div>
-          <div >
-            <div class="header-icon ">
-              <div>
-                <a
-                  href="{% url 'cart_sum' %}"
-                  class="btn cart-link d-flex align-items-center"
-                >
-                  <i class="bi-cart-fill me-1 fs-4 "></i>
-                  <span
-                    class="badge bg-dark text-white ms-1 fs-6 rounded-pill"
-                    id="cart_count"
-                  >
-                    {{ cart|length }}
-                  </span>
-                </a>
-              </div>
-   
 
-
-
-            </div>
-          </div>
 
           <div class="d-flex justify-content-center p-2 ">
+            <div class="mt-6">
+              <div class="header-icon text-white ">
+                <div>
+                  <a
+                    href="{% url 'cart_sum' %}"
+                    class="btn cart-link d-flex align-items-center"
+                  >
+                    <i class="bi-cart-fill me-1 fs-4 text-white"></i>
+                    <span
+                      class="badge bg-dark text-white ms-1 fs-6 rounded-pill"
+                      id="cart_count"
+                    >
+                      {{ cart|length }}
+                    </span>
+                  </a>
+                </div>
+     
+  
+  
+  
+              </div>
+            </div>
             <div class="mt-8">
               {% if user.is_authenticated %}
               <div class="widget-text icon alt-font">
                 <a href="{% url 'profile' %}">
-                  <i class="fas fa-user d-inline-block fs-5 me-5px"></i>
-                  <span class="d-none d-xxl-inline-block fs-5">
+                  <i class="fas fa-user d-inline-block ml-2 fs-8 text-white me-5px"></i>
+                  <span class="d-none d-xxl-inline-block text-white fs-5">
                     {% trans "Account" %}
                   </span>
                 </a>
               </div>
               {% endif %}
             </div>
-            <div class="mt-6">
+            <div class="mt-7">
               <ul>
                 <li class="nav-item dropdown ">
                   <button
-                    class="btn dropdown-toggle fs-5"
+                    class="btn dropdown-toggle fs-5 text-white"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -203,11 +204,11 @@
             </div>
             <div class="mt-7 ">
             {% if not user.is_authenticated %}
-            <a href="{% url 'login' %}" class="btn"> <i class="fa-solid fa-right-from-bracket fs-6 ">{% trans "Login" %}</i></a>
+            <a href="{% url 'login' %}" class="btn"> <i class="fa-solid fa-right-from-bracket fs-6 text-white ">{% trans "Login" %}</i></a>
             {% else %}
             <form method="post" action="{% url 'logout' %}">
               {% csrf_token %}
-              <button class="btn" type="submit"><i class="fa-solid fa-right-from-bracket fs-6 ">{% trans "Logout" %}</i></button>
+              <button class="btn" type="submit"><i class="fa-solid fa-right-from-bracket fs-6 text-white">{% trans "Logout" %}</i></button>
             </form>
             {% endif %}
           </div>
@@ -241,12 +242,39 @@
     {% block content %}{% endblock %}
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">
-          Copyright &copy; Hariha.ხარიხა {{ 2024 }}
+    <footer class="py-5 mt-8  bg-black">
+      <div class="d-flex justify-content-evenly">
+        <p class="mt-3 text-center text-white">
+          Copyright &copy; jerseys.ge {{ 2024 }}
         </p>
+        <div>
+        <div class="d-flex justify-content-start gap-2">
+        <div>
+          <a href="https://www.instagram.com/your_instagram_page/" target="_blank">
+            <i class="fab fa-instagram-square fa-3x" style="color: #fefafa"></i>
+          </a>
+        </div>
+        <div>
+          <a href="https://www.facebook.com/Harihacom" target="_blank">
+            <i class="fab fa-facebook-square fa-3x" style="color: #fbfdff"></i>
+          </a>
+        </div>
       </div>
+      <div>
+        <div class="w-100 d-block text-white">
+          <a href="mailto:info@yourdomain.com" class="fs-16  text-white">hariha.jerseys@gmail.com</a><br>
+    
+      </div>
+      </div>
+      <div>
+        <div class="w-100 d-block text-white">
+          <span class="d-block"><a href="tel:1800222000">574-99-48-48</a></span>
+       
+      </div>
+      </div>
+      </div>
+      </div>
+
     </footer>
 
     <script>

@@ -38,13 +38,8 @@ def signup_view(request):
             user.is_active = False  # Deactivate account until it is verified
             user.save()
             user.refresh_from_db()
-            user.profile.first_name = form.cleaned_data.get('first_name')
-            user.profile.last_name = form.cleaned_data.get('last_name')
+            user.profile.full_name = form.cleaned_data.get('full_name')
             user.profile.email = form.cleaned_data.get('email')
-            user.profile.phone = form.cleaned_data.get('phone')
-            user.profile.city = form.cleaned_data.get('city')
-            user.profile.zipcode = form.cleaned_data.get('zipcode')
-            user.profile.address = form.cleaned_data.get('address')
             user.save()
             
             # Send verification email

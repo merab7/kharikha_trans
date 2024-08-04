@@ -9,13 +9,12 @@ class ShippingInfo(forms.ModelForm):
     email = forms.EmailField(label=_("Email"),  required=True)
     address = forms.CharField(label=_("Address"), widget=forms.TextInput(attrs={'class':'form_control', 'placeholder': 'Address' }), required=True)
     city = forms.CharField(label=_("City"), widget=forms.TextInput(attrs={'class':'form_control', 'placeholder': 'City' }), required=True)
-    zipcode = forms.CharField(label=_("Zip"), widget=forms.TextInput(attrs={'class':'form_control', 'placeholder': 'Zipcode' }), required=False)
     phone = forms.CharField(label=_("Phone"), widget=forms.TextInput(attrs={'class':'form_control', 'placeholder': 'Phone' }), required=True)
     add_information = forms.CharField(label=_("Extra-Info"), widget=forms.Textarea(attrs={'class':'form_control', 'placeholder': 'Additional Information' }), required=False)
 
     class Meta:
         model = ShippingAddress
-        fields = ["fullname", "email", "address", "city","phone", "zipcode", "add_information"]
+        fields = ["fullname", "email", "address", "city","phone",  "add_information"]
 
 
 

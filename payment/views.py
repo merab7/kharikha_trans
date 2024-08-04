@@ -83,7 +83,7 @@ def billing(request):
         quantities = cart.get_quantities()
         prices = []
         shippingInfo = request.POST
-        info_list = [x for x in shippingInfo if x in ("fullname", "email", "address", "city", "phone", "zipcode", "per_id", "add_information") and len(x)>0]
+        info_list = [x for x in shippingInfo if x in ("fullname", "email", "address", "city", "phone",  "per_id", "add_information") and len(x)>0]
         shipping_sum = {f'{x.capitalize()}': shippingInfo[x] for x in info_list}
 
         # Save shipping info in session for guest users
@@ -152,7 +152,7 @@ def proc_order(request):
             email = my_shipping['email']
             total_paid = sum(prices)
             phone = my_shipping['phone']
-            shipping_address = f"{my_shipping['city']}\n{my_shipping['address']}\n{my_shipping['add_information']}\n{my_shipping['zipcode']}"
+            shipping_address = f"{my_shipping['city']}\n{my_shipping['address']}\n{my_shipping['add_information']}"
 
             set_order = Order(user=user, fullname=fullname, email=email, address=shipping_address, total_paid_amount=total_paid, phone=phone)
             set_order.save()

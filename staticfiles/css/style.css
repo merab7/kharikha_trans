@@ -8467,6 +8467,7 @@ header.sticky .left-sidebar-nav .navbar-nav .nav-link {
   width: 50%;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  color: white;
 }
 .hamburger-nav .menu-item-list {
   margin-bottom: 0;
@@ -8966,6 +8967,9 @@ button:focus {
   border-radius: 0;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  background-color: white;
+  margin-left: 10px;
+  
 }
 .navbar-toggler:focus {
   box-shadow: none;
@@ -19236,7 +19240,7 @@ footer .footer-navbar .nav-item:last-child a {
 
 
 section{
-margin-bottom: 900px;
+margin-bottom: 200px;
 }
 
 

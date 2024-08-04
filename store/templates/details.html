@@ -42,7 +42,7 @@
 
     <div class="col-md-6 mt-8">
       <div class="product-info">
-        <span class="fw-500 text-dark-gray d-block">{% blocktrans %}ხარიხა-KHarikha{% endblocktrans %}</span>
+        <span class="fw-500 text-dark-gray d-block">{% blocktrans %}jerseys.ge{% endblocktrans %}</span>
         {% if request.LANGUAGE_CODE == 'ka' %}
         <h4 class="alt-font text-dark-gray fw-500 mb-5px">{{ product.name }}</h4>
         {% else %}
@@ -92,7 +92,7 @@
             <button type="button" class="qty-plus" id="increment">+</button>
           </div>
           <button value="{{ product.id }}" id="add-to-cart"
-            class="btn btn-outline-dark mt-auto order-3 order-sm-2" disabled>
+            class="btn bg-black text-white p-2 order-3 order-sm-2" disabled>
             {% trans "Add to Cart" %}
           </button>
           <div id="validation-message" class="text-danger mt-3 order-2 order-sm-3"></div>
@@ -157,7 +157,7 @@
       } else {
         $("#add-to-cart").prop("disabled", true);
         if (!isValidSize) {
-          $("#validation-message").text("{% trans 'Please select a valid size.' %}");
+      
         } else if (!isQuantityValid) {
           $("#validation-message").text("{% trans 'Please enter a valid quantity.' %}");
         }

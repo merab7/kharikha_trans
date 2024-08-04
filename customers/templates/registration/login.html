@@ -1,11 +1,11 @@
 {% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
 <!---->
 {% load i18n %}
-<div class="container mt-5 p-3 p-md-5 d-flex justify-content-center sm-mt-28">
+<div class="container mt-5 p-3 p-md-5 d-flex justify-content-center mt-16 sm-mt-28">
   <div
     class="col-12 col-md-8 col-lg-6 p-3 p-md-5 border rounded bg-light shadow"
   >
-    <h2 class="mb-4 text-center">{% trans "Login" %}</h2>
+    <h2 class="mb-4 text-center text-black">{% trans "Login" %}</h2>
     <form method="post" class="needs-validation" novalidate>
       {% csrf_token %}
       <!-- Display form errors -->
@@ -32,7 +32,7 @@
         <div class="invalid-feedback">{{ form.password.errors|join:", " }}</div>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-block mt-4">
+      <button type="submit" class="btn bg-black text-white mt-4">
         {% trans "Login" %}
       </button>
     </form>

@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<section class="pt-8 sm-pt-28">
+<section class="pt-8 sm-pt-28 mt-8">
   <div class="container">
     <div class="row align-items-start">
       <div class="col-lg-8 ">
@@ -110,7 +110,7 @@
               </div>
           </div>
             {% else %}
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info mt-8" role="alert">
               {{ user.username }} {% trans "your cart is empty!" %}
             </div>
             {% endif %}
@@ -157,7 +157,7 @@
               <tr id="account-info" class="d-none">
                 <td colspan="2">
                   <div class="alert alert-info" role="alert">
-                    {% trans "Account Number: " %}<span id="account-number">1234567890</span>
+                    {% trans "Account Number: " %}<span id="account-number">GE76BG0000000601576176</span>
                     <button class="btn btn-link" onclick="copyAccountNumber()">{% trans "Copy" %}</button>
                   </div>
                 </td>

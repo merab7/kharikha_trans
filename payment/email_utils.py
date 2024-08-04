@@ -27,7 +27,7 @@ def send_order_confirmation(email, content, EMAIL, sum_order, language):
 
 
     msg = MIMEMultipart()
-    msg['From'] = formataddr((_('Hariha'), EMAIL))
+    msg['From'] = formataddr((_('jerseys.ge'), EMAIL))
     msg['To'] = email
     msg['Subject'] = _('Your order confirmation')
 
@@ -105,7 +105,7 @@ def send_order_confirmation(email, content, EMAIL, sum_order, language):
                     <p>{_('Thank you for shopping with us!')}</p>
                 </div>
                 <div class="email-footer">
-                    <p>&copy; {current_year} {_('Hariha. All rights reserved.')}</p>
+                    <p>&copy; {current_year} {_('jerseys.ge. All rights reserved.')}</p>
                 </div>
             </div>
         </body>
