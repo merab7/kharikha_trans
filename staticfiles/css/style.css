@@ -19287,3 +19287,16 @@ margin-bottom: 200px;
   color: #333;
 }
 
+/* Custom styles for responsive table */
+@media (max-width: 576px) {
+  .table td,
+  .table th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .table-responsive ul.list-unstyled li {
+    display: block;
+    white-space: normal;
+  }
+}

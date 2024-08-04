@@ -141,14 +141,14 @@
 
 
           <div class="d-flex justify-content-center p-2 ">
-            <div class="mt-6">
+            <div class="mt-8">
               <div class="header-icon text-white ">
                 <div>
                   <a
                     href="{% url 'cart_sum' %}"
                     class="btn cart-link d-flex align-items-center"
                   >
-                    <i class="bi-cart-fill me-1 fs-5 text-white"></i>
+                    <i class="bi-cart-fill me-1 fs-6 text-white"></i>
                     <span
                       class="badge bg-dark text-white ms-1 fs-6 rounded-pill"
                       id="cart_count"
@@ -167,7 +167,7 @@
               {% if user.is_authenticated %}
               <div class="widget-text icon alt-font">
                 <a href="{% url 'profile' %}">
-                  <i class="fas fa-user d-inline-block ml-2 fs-5 text-white me-5px"></i>
+                  <i class="fas fa-user d-inline-block ml-2 fs-6 text-white me-5px"></i>
                   <span class="d-none d-xxl-inline-block text-white fs-5">
                     {% trans "Account" %}
                   </span>
@@ -247,32 +247,6 @@
         <p class="mt-3 text-center text-white">
           Copyright &copy; jerseys.ge {{ 2024 }}
         </p>
-        <div>
-        <div class="d-flex justify-content-start gap-2">
-        <div>
-          <a href="https://www.instagram.com/your_instagram_page/" target="_blank">
-            <i class="fab fa-instagram-square fa-3x" style="color: #fefafa"></i>
-          </a>
-        </div>
-        <div>
-          <a href="https://www.facebook.com/Harihacom" target="_blank">
-            <i class="fab fa-facebook-square fa-3x" style="color: #fbfdff"></i>
-          </a>
-        </div>
-      </div>
-      <div>
-        <div class="w-100 d-block text-white">
-          <a href="mailto:info@yourdomain.com" class="fs-16  text-white">hariha.jerseys@gmail.com</a><br>
-    
-      </div>
-      </div>
-      <div>
-        <div class="w-100 d-block text-white">
-          <span class="d-block"><a href="tel:1800222000">574-99-48-48</a></span>
-       
-      </div>
-      </div>
-      </div>
       </div>
 
     </footer>
