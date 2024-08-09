@@ -1,0 +1,54 @@
+{% extends 'base.html' %} {% load i18n %} {% block content %}
+<div class="container mt-16">
+     <div class="row">
+          <div class="col-12">
+            <ul class="shop-modern d-flex justify-content-between flex-wrap ">
+              {% for product in searched_products %}
+              <li class="grid-item col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4 ">
+                <div class="shop-box mb-10px p-5">
+                  <div class="shop-image mb-20px position-relative">
+                    <a href="{% url 'details' product.id %}">
+                      <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                      <div class="shop-overlay bg-gradient-gray-light-dark-transparent"></div>
+                      {% if product.sale > 0 %}
+                      <div class="sale-percentage position-absolute top-0 start-0 bg-danger text-white px-2 py-1">
+                        {{ product.sale }}%{% trans "Off" %}
+                      </div>
+                      {% endif %}
+                      <div class="shop-hover d-flex justify-content-center align-items-center w-100 h-100 position-absolute top-0 start-0">
+                        <div class="shop-buttons-wrap">
+                          <a href="{% url 'details' product.id %}" class="alt-font btn btn-small btn-box-shadow btn-round-edge left-icon add-to-cart custom-add-to-cart-btn" style="background-color: black; color: white;">
+                            <i class="bi-cart-fill"></i>
+                            <span class="quick-view-text button-text">{% trans "Add to cart" %}</span>
+                          </a>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="shop-footer text-center">
+                    {% if request.LANGUAGE_CODE == 'ka' %}
+                    <a href="{% url 'details' product.id %}" class="alt-font text-dark-gray fs-19 fw-500">{{ product.name }}</a>
+                    {% else %}
+                    <a href="{% url 'details' product.id %}" class="alt-font text-dark-gray fs-19 fw-500">{{ product.name_en }}</a>
+                    {% endif %}
+                    {% if product.sale > 0 %}
+                    <div class="price lh-22 fs-18">
+                      <del>₾ {{ product.price }}</del> ₾ {{ product.new_price }}
+                    </div>
+                    {% else %}
+                    <div class="price lh-22 fs-18">₾ {{ product.price }}</div>
+                    {% endif %}
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+        
+            <!-- Pagination controls -->
+
+          </div>
+        </div>
+     <br><br><br><br><br><br><br><br><br><br>
+</div>
+
+{% endblock %}

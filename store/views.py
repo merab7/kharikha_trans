@@ -5,6 +5,9 @@ from django.core.paginator import Paginator
 from django.utils import translation
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from django.contrib import messages
+from django.db.models import Q
+
 
 def home(request):
     products = Product.objects.all().order_by('id')  # Order products by id (or another field)
@@ -114,4 +117,31 @@ def set_language(request, lang_code):
     response.set_cookie(settings.LANGUAGE_COOKIE_NAME, user_language)
     return response
 
+
+
+
+def search(request):
+
+     if request.method == "POST":
+        #get input box with the name searhced
+        searched = request.POST['searched']
+   
+        #searched productes after seearched
+        searched_products = Product.objects.filter(Q(name__icontains = searched)| Q(name_en__icontains = searched) | Q(description__icontains = searched)| Q(description_en__icontains = searched)| Q(cn__icontains = searched) | Q(cn_en__icontains = searched) )
+        if searched_products:
+
+            return render(request, 'search.html',  {'searched_products':searched_products})
+        
+        else:
+            if request.LANGUAGE_CODE == 'ka':
+               messages.success(request, f"{searched}, მსგავსი პროდუქტი ან კატეგორია არ არსებობს სცადეთ თავიდან")
+               return render(request, 'search.html',  {})    
+            else:
+               messages.success(request, f"Product or Category like {searched} does not exist, try again") 
+               return render(request, 'search.html',  {})    
+
+            
+     else:
+        return render(request, 'search.html',  {})    
+    
 

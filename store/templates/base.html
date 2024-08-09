@@ -102,6 +102,13 @@
               class="collapse navbar-collapse text-white bg-black"
               id="navbarNav"
             >
+              <!-- Search Form (visible only on small screens) -->
+            <form class="d-lg-none" method='POST' action="{% url 'search' %}">
+                {% csrf_token %}
+                <input class="bg-white text-black w-50 rounded" required  type="text" name="searched" placeholder="Search products..." aria-label="Search products">
+                <button class="btn bg-black p-19px " type="submit"><i  class="fas fa-search text-white"></i></button>
+              </form>
+          
               <ul
                 class="navbar-nav alt-font navbar-left justify-content-between text-white"
               >
@@ -138,8 +145,16 @@
               </ul>
             </div>
           </div>
-
-
+          
+        <!-- search -->
+          <!-- Search Form -->
+          <form class=" d-none d-lg-flex " method='POST' action="{% url 'search' %}">
+            {% csrf_token %}
+            <input class="search_form_input bg-white text-black rounded" required type="text" name="searched" placeholder="Search products..." aria-label="Search products">
+            <button class="btn bg-black " type="submit"><i class="fas text-white fa-search"></i></button>
+          </form>
+          
+        
           <div class="d-flex justify-content-center p-2 ">
             <div class="mt-8">
               <div class="header-icon text-white ">
