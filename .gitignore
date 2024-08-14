@@ -84,12 +84,13 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.myvenv/
+.venv/
 env/
 venv/
 ENV/
 env.bak/
-myvenv.bak/
+venv.bak/
+myvenv/  # Add this line to ignore your specific virtual environment folder
 
 # Spyder project settings
 .spyderproject
