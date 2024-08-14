@@ -141,15 +141,18 @@ TIME_ZONE = 'UTC'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 # Static files (CSS, JavaScript, images)
+# STATIC_URL = '/static/'
+
+# # The absolute path to the directory where collectstatic will collect static files for deployment.
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# # Additional locations the staticfiles app will traverse if the FileSystemFinder finder is enabled.
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'static',
+# ]
+
 STATIC_URL = '/static/'
-
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Additional locations the staticfiles app will traverse if the FileSystemFinder finder is enabled.
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media files (user-uploaded content)
 MEDIA_URL = '/media/'
