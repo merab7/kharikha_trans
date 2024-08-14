@@ -8,11 +8,9 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
-# Media files
-/media/
 
-# Static files
-/static/
+
+
 
 # Environment variables
 .env
@@ -84,12 +82,12 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.venv/
+.myvenv/
 env/
-venv/
+myvenv/
 ENV/
 env.bak/
-venv.bak/
+myvenv.bak/
 
 # Spyder project settings
 .spyderproject
