@@ -17,7 +17,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kharikhatrans-production.up.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'kharikhatrans-production.up.railway.app', 'jerseys.ge', 'www.jerseys.ge']
 
 
 CSRF_TRUSTED_ORIGINS = ['https://kharikhatrans-production.up.railway.app']
