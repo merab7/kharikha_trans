@@ -23,6 +23,8 @@ urlpatterns = [
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name = "password_reset_form.html"), name ='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name = "password_reset_done.html"), name ='password_reset_complete'),
     path('sitemap.xml', serve, {'path': 'sitemaps/sitemap.xml', 'document_root': settings.MEDIA_ROOT}),
+    path('robots.txt', serve, {'path': 'robots/robots.txt', 'document_root': settings.MEDIA_ROOT}),
+    path('google4e19584159d9c194.html', serve, {'path': 'googleserchauth/google4e19584159d9c194.html', 'document_root': settings.MEDIA_ROOT}),
 
 ] 
 

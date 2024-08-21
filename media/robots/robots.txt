@@ -6,6 +6,6 @@ Disallow: /profile/
 Disallow: /cart/
 Disallow: /checkout/
 
-Sitemap: https://jerseys.ge/sitemap_4444758.xml
-Sitemap: https://jerseys.ge/sitemap_4444758.html
+Sitemap: https://jerseys.ge/sitemap.xml
+Sitemap: https://jerseys.ge/sitemap.html
 Sitemap: https://jerseys.ge/urllist.txt
