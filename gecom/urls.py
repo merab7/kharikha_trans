@@ -26,6 +26,10 @@ urlpatterns = [
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
+    path(
+        "google2d988332cc1b49f0.html",
+        TemplateView.as_view(template_name="google2d988332cc1b49f0.html"),
+    ),
 ] 
 
 if settings.DEBUG:
