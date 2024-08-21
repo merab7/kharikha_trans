@@ -42,8 +42,16 @@ INSTALLED_APPS = [
     'customers',
     'crispy_forms',
     "crispy_bootstrap4",
-    "payment"
+    "payment",
+    'django.contrib.sitemaps',
+    'sitemap_generate',
 ]
+
+SITEMAP_MAPPING = 'store.urls.sitemaps'
+SITEMAP_INDEX_NAME = 'sitemap-index'
+SITEMAPS_VIEW_NAME = 'django.contrib.sitemaps.views.sitemap'
+SITEMAP_MEDIA_PATH = 'sitemaps'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
