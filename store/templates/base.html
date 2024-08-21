@@ -4,29 +4,40 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="M.T." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Buy high-quality football jerseys of your favorite teams. Show your support by wearing the colors of your team. Discover a wide range of football jerseys available for all fans." />
-    <meta name="keywords" content="football jerseys, buy football jerseys, team jerseys, sports apparel, fan merchandise, football fan gear, soccer jerseys, team colors, high-quality jerseys, football team shirts, georgian national team, retro football shirts, georgia national football team shirts, kharikha, hariha" />
-    <meta name="description" lang="ka" content="იყიდე შენი საყვარელი გუნდის მაღალი ხარისხის მაისური. ატარე შენი გუნდის ფერები და აჩვენე მხარდაჭერა. აღმოაჩინე ფართო არჩევანი ფეხბურთის გულშემატკივრებისთვის." />
-    <meta name="keywords" lang="ka" content="ფეხბურთის მაისურები, შეიძინე ფეხბურთის მაისურები, გუნდის მაისურები, სპორტული ტანსაცმელი, გულშემატკივრის ატრიბუტიკა, ფეხბურთის გულშემატკივართა სამოსი, გუნდის ფერები, მაღალი ხარისხის მაისურები, ფეხბურთის გუნდის მაისურები, რეალ მადრიდის მაისურები, ბარსელონას მაისურები, რეტორო დიზაინის ფეხბურთის მაისურები, ხარიხა, ჰარიჰა, საქართველოს ნაკრების ფორმები, საქართველოს ნაკრების მაისურები" />
-    <!-- favicon icon -->
-
-    <link
-      rel="apple-touch-icon"
-      href="{% static 'images/apple-touch-icon-57x57.png' %}"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="72x72"
-      href="{% static 'images/apple-touch-icon-72x72.png' %}"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="114x114"
-      href="{% static 'images/apple-touch-icon-114x114.png' %}"
-    />
-
+    
+    <!-- Default Meta Tags -->
+    <meta name="description" content="{% block meta_description %}Online sports store jerseys.ge - Your favorite football team's jerseys and more.{% endblock %}" />
+    <meta name="keywords" content="{% block meta_keywords %}jerseys, jerseys.ge, football jerseys, buy football jerseys, team jerseys, sports apparel, fan merchandise, football fan gear, soccer jerseys, team colors, high-quality jerseys, football team shirts, georgian national team, retro football shirts, georgia national football team shirts, kharikha, hariha{% endblock %}" />
+    <meta name="author" content="M.T." />
+    
+    <!-- Meta Tags for Georgian Language -->
+    {% if request.LANGUAGE_CODE == 'ka' %}
+    <meta name="description" lang="ka" content="{% block meta_description_ka %}ონლაინ სპორტული მაღაზია jerseys.ge - შენი საყვარელი საფეხბურთო გუნდის მაისურები და მეტი. {% endblock %}" />
+    <meta name="keywords" lang="ka" content="{% block meta_keywords_ka %}ჯერსი, ჯერსი.ჯე, ჯერსი.გე, ფეხბურთის მაისურები, შეიძინე ფეხბურთის მაისურები, გუნდის მაისურები, სპორტული ტანსაცმელი, გულშემატკივრის ატრიბუტიკა, ფეხბურთის გულშემატკივართა სამოსი, გუნდის ფერები, მაღალი ხარისხის მაისურები, ფეხბურთის გუნდის მაისურები, რეალ მადრიდის მაისურები, ბარსელონას მაისურები, რეტორო დიზაინის ფეხბურთის მაისურები, ხარიხა, ჰარიჰა, საქართველოს ნაკრების ფორმები, საქართველოს ნაკრების მაისურები{% endblock %}" />
+    {% endif %}
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}Jerseys.ge - High-Quality Football Jerseys{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Buy high-quality football jerseys of your favorite teams. Show your support by wearing the colors of your team. Discover a wide range of football jerseys available for all fans.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/og-image.jpg' %}{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Jerseys.ge - High-Quality Football Jerseys{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Buy high-quality football jerseys of your favorite teams. Show your support by wearing the colors of your team. Discover a wide range of football jerseys available for all fans.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{% static 'images/twitter-image.jpg' %}{% endblock %}">
+    <title>{% block title %}Jerseys.ge - High-Quality Football Jerseys{% endblock %}</title>
+    <!-- Favicon Icons -->
+    <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon-57x57.png' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/apple-touch-icon-72x72.png' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/apple-touch-icon-114x114.png' %}" />
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
