@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /checkout/
+
+Sitemap: https://jerseys.ge/sitemap_4444758.xml
+Sitemap: https://jerseys.ge/sitemap_4444758.html
+Sitemap: https://jerseys.ge/urllist.txt
