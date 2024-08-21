@@ -36,7 +36,7 @@ class sizeSitemap(Sitemap):
         return ProductSize.objects.all()
     
     def location(self, item):
-        return reverse('category', args=[item.name])
+        return reverse('category', args=[item.size])
 
 class StaticPageSitemap(Sitemap):
     name = 'static'
@@ -44,7 +44,7 @@ class StaticPageSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return ['details', 'home', 'about', 'contact', 'category', 'login','signup']
+        return ['home',   'login','signup']
 
     def location(self, item):
         return reverse(item)
