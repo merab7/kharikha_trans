@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from customers.views import user_not_authenticated, CustomLoginView
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import path, include
-
+from django.views.static import serve
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -22,6 +22,8 @@ urlpatterns = [
         path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name = "password_reset_sent.html"), name ='password_reset_done'),
     path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name = "password_reset_form.html"), name ='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name = "password_reset_done.html"), name ='password_reset_complete'),
+    path('sitemap.xml', serve, {'path': 'sitemaps/sitemap.xml', 'document_root': settings.MEDIA_ROOT}),
+
 ] 
 
 if settings.DEBUG:
