@@ -19287,3 +19287,93 @@ margin-bottom: 200px;
   color: #333;
 }
 
+
+
+
+  
+
+
+  .scrollable-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 10px;
+    position: relative;
+  }
+  
+
+  
+  .shop-modern {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .grid-item {
+    flex-shrink: 0;
+    max-width: 16.666%; /* For larger screens */
+  }
+  
+  @media (max-width: 768px) {
+    .grid-item {
+      max-width: 33.333%; /* Display 3 items on mobile */
+    }
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    z-index: 1000;
+  }
+  
+  .scroll-arrow {
+    font-size: 50px;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  /* Grid items */
+.grid-item {
+  flex-shrink: 0;
+  max-width: 25%; /* 4 items per row on large screens */
+}
+
+@media (max-width: 768px) {
+  .grid-item {
+    max-width: 50%; /* 2 items per row on small screens */
+  }
+}
+
+/* Scrollable container */
+.scrollable-container {
+  max-height: 600px; /* Set the height as needed */
+  overflow-y: auto;
+  padding-right: 15px; /* Optional, adds some space for a scrollbar */
+}
+
+/* Grid items */
+.grid-item {
+  flex-shrink: 0;
+  max-width: 25%; /* 4 items per row on large screens */
+}
+
+@media (max-width: 768px) {
+  .grid-item {
+    max-width: 50%; /* 2 items per row on small screens */
+  }
+}
+
+/* Customize scrollbar (optional) */
+.scrollable-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+  border-radius: 10px;
+}
+
+.scrollable-container {
+  position: relative; /* Ensure this is relative so absolute elements inside are positioned correctly */
+}
+

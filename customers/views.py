@@ -16,6 +16,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from .tokens import email_verification_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
 
 #this decorator prevents signed users form accessing the register page 
 #it checks if the user is authenticated and if it is sends it to home page 
@@ -52,14 +53,16 @@ def signup_view(request):
                         'token': email_verification_token.make_token(user),
                         'language_code': request.LANGUAGE_CODE,  # Assuming you have language_code available
                     })
+            message_text = strip_tags(message_html)  # Create a plain text version of the email
             to_email = form.cleaned_data.get('email')
             email = EmailMultiAlternatives(
             subject=mail_subject,
-            body=message_html,
-            from_email='from@example.com',
+            body=message_text,
+            from_email='no-reply@jerseys.ge',
             to=[to_email],
             )
-            email.content_subtype = 'html'  # Ensure content type is HTML
+            email.attach_alternative(message_html, "text/html") 
+            # email.content_subtype = 'html'  # Ensure content type is HTML
             email.send()
             
             return render(request, 'account_activation_sent.html')

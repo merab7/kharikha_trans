@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://jerseys.ge/</loc>
+  <lastmod>2024-08-22T16:37:09+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://jerseys.ge/sum/</loc>
+  <lastmod>2024-08-22T16:37:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://jerseys.ge/accounts/login/</loc>
+  <lastmod>2024-08-22T16:37:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://jerseys.ge/product/%E1%83%99%E1%83%95%E1%83%90%E1%83%A0%E1%83%90</loc>
+  <lastmod>2024-08-22T16:37:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://jerseys.ge/product/1</loc>
+  <lastmod>2024-08-22T16:37:09+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://jerseys.ge/signup/</loc>
+  <lastmod>2024-08-22T16:37:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://jerseys.ge/reset_password/</loc>
+  <lastmod>2024-08-22T16:37:09+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

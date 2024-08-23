@@ -31,6 +31,10 @@ urlpatterns = [
         "google2d988332cc1b49f0.html",
         TemplateView.as_view(template_name="google2d988332cc1b49f0.html"),
     ),
+        path(
+        "new_sitemap.xml",
+        TemplateView.as_view(template_name="new_sitemap.xml"),
+    ),
 ] 
 
 if settings.DEBUG:

@@ -51,9 +51,10 @@
   </div>
 </section>
 
+
 <!-- Categories Section -->
-<section id="categories-section">
-  <div class="container">
+<section id="categories-section" class="position-relative">
+  <div class="container p-5">
     <div class="row mb-5 xs-mb-8">
       <div class="col-12 text-center">
         <h2 class="alt-font text-dark-gray mb-0 ls-minus-2px">
@@ -66,10 +67,10 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <ul class="shop-modern d-flex justify-content-between flex-wrap">
+  <div class="scrollable-container">
+    <ul class="shop-modern d-flex flex-nowrap overflow-x-auto">
       {% for category in categories %}
-      <li class="grid-item col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4 bg-transparent ">
+      <li class="grid-item col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4 bg-transparent flex-shrink-0">
         <div class="shop-box mb-10px p-5 ">
           <div class="shop-image mb-20px position-relative ">
             <a href="{% url 'category' category.name %}">
@@ -91,17 +92,21 @@
             {% else %}
             <a href="{% url 'category' category.name%}" class="alt-font text-dark-gray fs-19 fw-500">{{ category.name_en }}</a>
             {% endif %}
-            <!-- <a href="{% url 'category' category.name %}" class="alt-font text-dark-gray fs-19 fw-500">{{ category.name }}</a> -->
           </div>
         </div>
       </li>
       {% endfor %}
     </ul>
   </div>
+  <div class="scroll-indicator">
+    <span class="scroll-arrow">&#8594;</span>
+  </div>
 </section>
+
 
 <!-- Products Section -->
 <section id="products-section" class="mt-5 ps-7 pe-7 pb-3 lg-ps-3 lg-pe-3 sm-pb-6 xs-px-0 border-bottom p-2">
+
   <div class="container">
     <div class="row mb-5 xs-mb-8">
       <div class="col-12 text-center">
@@ -116,10 +121,64 @@
     </div>
   </div>
   <div id="product-list-container">
-    <!-- Include the products partial template -->
-    {% include 'partials/products.html' %}
+
+    <div class="row">
+      <div class="col-12">
+        <div id="scrollable-product-container" class="scrollable-container">
+          <ul id="product-list" class="shop-modern d-flex justify-content-between flex-wrap">
+            {% for product in page_obj %}
+            <li class="grid-item col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+              <div class="shop-box mb-10px p-5">
+                <div class="shop-image mb-20px position-relative">
+                  <a href="{% url 'details' product.id %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                    <div class="shop-overlay bg-gradient-gray-light-dark-transparent"></div>
+                    {% if product.sale > 0 %}
+                    <div class="sale-percentage position-absolute top-0 start-0 bg-danger text-white px-2 py-1">
+                      {{ product.sale }}%{% trans "Off" %}
+                    </div>
+                    {% endif %}
+                    <div class="shop-hover d-flex justify-content-center align-items-center w-100 h-100 position-absolute top-0 start-0">
+                      <div class="shop-buttons-wrap">
+                        <a href="{% url 'details' product.id %}" class="alt-font btn btn-small btn-box-shadow btn-round-edge left-icon add-to-cart custom-add-to-cart-btn" style="background-color: black; color: white;">
+                          <i class="bi-cart-fill"></i>
+                          <span class="quick-view-text button-text">{% trans "Add to cart" %}</span>
+                        </a>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="shop-footer text-center">
+                  {% if request.LANGUAGE_CODE == 'ka' %}
+                  <a href="{% url 'details' product.id %}" class="alt-font text-dark-gray fs-19 fw-500">{{ product.name }}</a>
+                  {% else %}
+                  <a href="{% url 'details' product.id %}" class="alt-font text-dark-gray fs-19 fw-500">{{ product.name_en }}</a>
+                  {% endif %}
+                  {% if product.sale > 0 %}
+                  <div class="price lh-22 fs-18">
+                    <del>₾ {{ product.price }}</del> ₾ {{ product.new_price }}
+                  </div>
+                  {% else %}
+                  <div class="price lh-22 fs-18">₾ {{ product.price }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+
+        </div>
+   
+        
+        <!-- Infinite Scroll Loading Indicator -->
+        <div id="loading" class="text-center my-4" style="display: none;">
+          <p>Loading more products...</p>
+        </div>
+      </div>
+    </div>
 
   </div>
+
 </section>
 
 <section id="faq">
@@ -320,6 +379,80 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.querySelector('.scrollable-container');
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+
+  // Hide the scroll indicator if not scrollable
+  if (container.scrollWidth <= container.clientWidth) {
+    scrollIndicator.style.display = 'none';
+  }
+
+  // Scroll to the right when the arrow is clicked
+  document.querySelector('.scroll-arrow').addEventListener('click', function() {
+    container.scrollBy({ left: 200, behavior: 'smooth' });
+  });
+  
+  // Hide/show the scroll indicator based on scroll position
+  container.addEventListener('scroll', function() {
+    if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
+      scrollIndicator.style.display = 'none';
+    } else {
+      scrollIndicator.style.display = 'block';
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const scrollIndicator = document.getElementById('scroll-down-indicator');
+  const scrollableContainer = document.getElementById('scrollable-product-container');
+  const loadingIndicator = document.getElementById('loading');
+  let allProductsLoaded = false;
+  let page = 2;
+
+  const loadMoreProducts = () => {
+    if (allProductsLoaded) return;
+
+    const url = `?page=${page}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data.products, 'text/html');
+        const newItems = doc.querySelectorAll('#product-list > li');
+
+        newItems.forEach(item => {
+          const existingItem = document.querySelector(`#product-list > li[data-id='${item.dataset.id}']`);
+          if (!existingItem) {
+            document.getElementById('product-list').appendChild(item);
+          }
+        });
+
+        page++;
+        loadingIndicator.style.display = 'none';
+
+        if (!data.has_next) {
+          allProductsLoaded = true;
+        }
+
+        scrollIndicator.style.display = allProductsLoaded ? 'none' : 'block';
+      })
+      .catch(error => {
+        console.error('Error loading more products:', error);
+        loadingIndicator.style.display = 'none';
+      });
+  };
+
+
+
+});
+
+
+
 
 </script>
   
