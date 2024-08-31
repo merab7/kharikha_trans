@@ -19378,8 +19378,22 @@ margin-bottom: 200px;
 }
 
 #categories-section .shop-image img {
-  width: 350px; /* Set a fixed width */
-  height: 250px; /* Set a fixed height */
+  width: 300px; /* Set a fixed width */
+  height: 300px; /* Set a fixed height */
   display: block;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  #categories-section .shop-image img {
+      width: 150px; /* Adjusted width for tablets and small devices */
+      height: 150px; /* Adjusted height for tablets and small devices */
+  }
+}
+
+@media (max-width: 576px) {
+  #categories-section .shop-image img {
+      width: 120px; /* Adjusted width for mobile devices */
+      height: 120px; /* Adjusted height for mobile devices */
+  }
 }
