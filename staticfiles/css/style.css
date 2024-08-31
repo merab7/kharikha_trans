@@ -19377,24 +19377,3 @@ margin-bottom: 200px;
   position: relative; /* Ensure this is relative so absolute elements inside are positioned correctly */
 }
 
-#categories-section .shop-image img {
-  width: 180px; /* Set a fixed width */
-  height: 280px; /* Set a fixed height */
-  display: block;
-  margin: 0 auto;
-}
-
-@media (max-width: 768px) {
-  #categories-section .shop-image img {
-      width: 95px; /* Adjusted width for tablets and small devices */
-      height: 60px; /* Adjusted height for tablets and small devices */
-  }
-  
-}
-
-@media (max-width: 576px) {
-  #categories-section .shop-image img {
-      width: 95px; /* Adjusted width for mobile devices */
-      height: 60px; /* Adjusted height for mobile devices */
-  }
-}
