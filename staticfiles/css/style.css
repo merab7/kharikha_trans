@@ -19378,8 +19378,8 @@ margin-bottom: 200px;
 }
 
 #categories-section .shop-image img {
-  width: 200px; /* Set a fixed width */
-  height: 300px; /* Set a fixed height */
+  width: 180px; /* Set a fixed width */
+  height: 280px; /* Set a fixed height */
   display: block;
   margin: 0 auto;
 }
