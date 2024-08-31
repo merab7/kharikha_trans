@@ -68,9 +68,9 @@
     </div>
   </div>
   <div class="scrollable-container">
-    <ul class="shop-modern d-flex flex-nowrap overflow-x-auto">
+    <ul class="shop-modern d-flex flex-nowrap overflow-x-auto gap-5">
       {% for category in categories %}
-      <li class="grid-item col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4 bg-transparent flex-shrink-0">
+      <li class="grid-item col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4 bg-transparent flex-shrink-0 ">
         <div class="shop-box mb-10px p-5 ">
           <div class="shop-image mb-20px position-relative ">
             <a href="{% url 'category' category.name %}">
