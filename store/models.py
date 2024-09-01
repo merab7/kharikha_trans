@@ -42,7 +42,7 @@ class Product(models.Model):
     description = models.CharField(max_length=250, blank=False, null=True)
     description_en = models.CharField(max_length=250, blank=False, null=True)
     image = models.ImageField(upload_to='products/')
-    model_image_1 = models.ImageField(upload_to='products/', blank=False, null=True)
+    model_image_1 = models.ImageField(upload_to='products/', blank=True, null=True)
     model_image_2 = models.ImageField(upload_to='products/', blank=True, null=True)
     sale = models.IntegerField(default=0)
     new_price = models.DecimalField(default=0, decimal_places=2, max_digits=6)

@@ -19385,16 +19385,3 @@ margin-bottom: 200px;
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  #categories-section .shop-image img {
-      width: 150px; /* Adjusted width for tablets and small devices */
-      height: 70px; /* Adjusted height for tablets and small devices */
-  }
-}
-
-@media (max-width: 576px) {
-  #categories-section .shop-image img {
-      width: 120px; /* Adjusted width for mobile devices */
-      height: 50px; /* Adjusted height for mobile devices */
-  }
-}

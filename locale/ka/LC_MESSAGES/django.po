@@ -70,7 +70,7 @@ msgstr "რედაქტირება"
 
 #: card/templates/cart_sum.html:88
 msgid "Confirm Delete"
-msgstr "წაშlis დადასტურება"
+msgstr "წაშლის დადასტურება"
 
 #: card/templates/cart_sum.html:92
 msgid "Are you sure you want to delete"
@@ -613,7 +613,7 @@ msgstr "გთხოვთ, აირჩიეთ სწორი რაოდ�
 
 #: store/templates/home.html:74
 msgid "See category"
-msgstr "ნახე კატეგორია"
+msgstr "ნახე"
 
 #: venv/lib/python3.12/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"

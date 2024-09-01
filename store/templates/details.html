@@ -19,12 +19,16 @@
             <img class="d-block w-100 carousel-image" src="{{ product.image.url }}" alt="{% trans 'Slide 1' %}">
           </div>
           <div class="carousel-item">
+            {% if product.model_image_1 %}
             <img class="d-block w-100 carousel-image" src="{{ product.model_image_1.url }}"
               alt="{% trans 'Slide 2' %}">
+              {% endif %}
           </div>
           <div class="carousel-item">
+            {% if product.model_image_2 %}
             <img class="d-block w-100 carousel-image" src="{{ product.model_image_2.url }}"
               alt="{% trans 'Slide 3' %}">
+              {% endif %}
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
