@@ -266,7 +266,8 @@ def proc_order(request):
                 if 'cupon' in request.session:
                     del request.session['cupon']
                     del request.session['new_sum']
-
+                
+                del request.session['cart']
                 messages.success(request, "Order Placed")
                 # redirect to gome
                 return redirect('home')

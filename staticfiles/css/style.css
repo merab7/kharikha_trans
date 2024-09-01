@@ -19354,7 +19354,7 @@ margin-bottom: 200px;
 /* Grid items */
 .grid-item {
   flex-shrink: 0;
-  max-width: 25%; /* 4 items per row on large screens */
+  max-width: 33.333%; /* 4 items per row on large screens */
 }
 
 @media (max-width: 768px) {

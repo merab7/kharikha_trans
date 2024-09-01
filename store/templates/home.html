@@ -141,7 +141,7 @@
         <div id="scrollable-product-container" class="scrollable-container">
           <ul id="product-list" class="shop-modern d-flex justify-content-between flex-wrap">
             {% for product in page_obj %}
-            <li class="grid-item col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4 text-center">
+            <li class="grid-item  text-center">
               <div class="shop-box mb-10px p-5">
                 <div class="shop-image mb-20px position-relative">
                   <a href="{% url 'details' product.id %}">
