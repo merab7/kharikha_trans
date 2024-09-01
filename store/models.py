@@ -3,38 +3,33 @@ from PIL import Image
 import io
 from django.core.files.base import ContentFile
 
-#category for the products
 class Category(models.Model):
     name = models.CharField(max_length=200, blank=False, null=True)
     name_en = models.CharField(max_length=200, blank=False, null=True)
     image = models.ImageField(upload_to='categories/', blank=False, null=True)
 
     def save(self, *args, **kwargs):
-        # Call the original save method to handle file saving
         super().save(*args, **kwargs)
 
-        # Open and resize the image
         if self.image:
             img = Image.open(self.image)
+            max_size = (300, 300)
+            img.thumbnail(max_size, Image.LANCZOS)
 
-            # Resize image
-            max_size = (300, 300)  # Define your maximum size here
-            img.thumbnail(max_size, Image.LANCZOS)  # Updated from ANTIALIAS to LANCZOS
-
-            # Save the image back to the same file
+            image_format = img.format  # Get the format of the image
             output = io.BytesIO()
-            img.save(output, format='JPEG', quality=85)  # Adjust quality as needed
+            
+            # Use the original format for saving, default to JPEG if not supported
+            save_format = image_format if image_format in ['JPEG', 'PNG', 'GIF', 'WEBP'] else 'JPEG'
+            img.save(output, format=save_format, quality=85)
             output.seek(0)
+
             self.image.save(self.image.name, ContentFile(output.read()), save=False)
 
-        # Call the original save method to finalize saving
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.name
-
-      
-
 
 
 class Product(models.Model):
@@ -53,25 +48,25 @@ class Product(models.Model):
     new_price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
 
     def save(self, *args, **kwargs):
-        # Calculate the new price based on sale percentage
         self.new_price = self.price - (self.price * self.sale) / 100
 
-        # Call the original save method to handle file saving
         super().save(*args, **kwargs)
 
-        # Process images
         for image_field in [self.image, self.model_image_1, self.model_image_2]:
             if image_field:
                 img = Image.open(image_field)
-                max_size = (800, 800)  # Define your maximum size here
-                img.thumbnail(max_size, Image.LANCZOS)  # Updated from ANTIALIAS to LANCZOS
-                
+                max_size = (800, 800)
+                img.thumbnail(max_size, Image.LANCZOS)
+
+                image_format = img.format
                 output = io.BytesIO()
-                img.save(output, format='JPEG', quality=85)
+                
+                save_format = image_format if image_format in ['JPEG', 'PNG', 'GIF', 'WEBP'] else 'JPEG'
+                img.save(output, format=save_format, quality=85)
                 output.seek(0)
+
                 image_field.save(image_field.name, ContentFile(output.read()), save=False)
 
-        # Call the original save method to finalize saving
         super().save(*args, **kwargs)
 
     def __str__(self) -> str:
