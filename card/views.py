@@ -79,42 +79,126 @@ def is_in_cart(request):
     return JsonResponse({'in_cart': in_cart})
 
 
+def get_max_quantity(request):
+    if request.POST.get('action') == 'post':
+        product_id = request.POST.get('product_id')
+        size = request.POST.get('product_size')
+
+        product = get_object_or_404(Product, id=product_id)
+        size_count = ProductSize.objects.get(product=product, size=size)
+        
+        cart = Cart(request)
+        cart_item = cart.get_item_details(f"{product_id}_{size}")
+        current_in_cart = cart_item['quantity'] if cart_item else 0
+        quantity_in_db = size_count.quantity
+
+        return JsonResponse({'quantity_in_db': quantity_in_db + current_in_cart})
 
 def edit(request, id, size):
     cart = Cart(request)
     products = cart.get_quantities()
-    product_from_model = get_object_or_404(Product, id=id)
-    size_count = ProductSize.objects.filter(product=product_from_model)
-    cart_key = f"{id}_{size}"
-    for x in products.keys():
-        if products[x]['id']== id and products[x]['size'] == size :
-            product = products[x]
-     
+    cart_item = cart.get_item_details(f"{id}_{size}")
+    current_in_cart = cart_item['quantity'] if cart_item else 0
+    if products:
+        product_from_model = get_object_or_404(Product, id=id)
+        size_count = ProductSize.objects.filter(product=product_from_model)
+        cart_key = f"{id}_{size}"
+        for x in products.keys():
+            if products[x]['id']== id and products[x]['size'] == size :
+                product = products[x]
+        
 
-    context = {
-        'product': product,
-        'product_from_model': product_from_model,
-        'size_count': size_count,
-        'cart_key': cart_key
-    }
- 
-    return render(request, 'edit.html', context)
+        context = {
+            'product': product,
+            'product_from_model': product_from_model,
+            'size_count': size_count,
+            'cart_key': cart_key,
+            'current': current_in_cart
+            
+        }
+    
+        return render(request, 'edit.html', context)
+    
+    else:
+        if request.LANGUAGE_CODE == 'en':
+            messages.success(request, "Time has expired (1 hour). Please refill your cart and place your order again.")
+            return redirect('home')
+        else:
+            messages.success(request, "დრო გავიდა (1სთ)! გთხოვთ ხელახლა შევსიოთ თქვენი კალათა და განახორციელოთ შეკვეთა. ")
+            return redirect('home')
+  
 
+
+
+# def get_max_quantity(request):
+#         product_id = request.POST.get('product_id')
+#         size = request.POST.get('product_size')
+
+#         product = get_object_or_404(Product, id=product_id)
+#         size_count = ProductSize.objects.get(product=product, size=size)
+        
+#         # Calculate the max quantity available considering the cart
+#         cart = Cart(request)
+#         cart_item = cart.get_item_details(f"{product_id}_{size}")
+#         current_in_cart = cart_item['quantity'] if cart_item else 0
+#         quantity_in_db = size_count.quantity
+#         print(quantity_in_db) 
+#         return JsonResponse({'quantity_in_db': quantity_in_db})
+       
+
+       
 
 
 def update(request):
     cart = Cart(request)
-    if request.POST.get('action') == 'post':
-        product_id = int(request.POST.get('product_id'))
-        product = get_object_or_404(Product, id=product_id)
-        user_quantity = int(request.POST.get('user_quantity'))
-        product_size = request.POST.get('product_size')
-        cart_key = str(request.POST.get('cart_key'))
-        cart.update(cart_key=cart_key, product=product, size=product_size, quantity=user_quantity)
-        cart_count = cart.__len__()
-        response = JsonResponse({'count': cart_count})
-        
-        return response
+    products = cart.get_quantities()
+
+    if products:
+
+        if request.POST.get('action') == 'post':
+            product_id = int(request.POST.get('product_id'))
+            product = get_object_or_404(Product, id=product_id)
+            user_quantity = int(request.POST.get('user_quantity'))
+            product_size = request.POST.get('product_size')
+            cart_key = str(request.POST.get('cart_key'))
+
+            # Retrieve the current item details from the cart
+            cart_item = cart.get_item_details(cart_key)
+            if cart_item:
+                # Restore the quantity back to the database before updating
+                size_count = ProductSize.objects.get(product=product, size=cart_item['size'])
+                size_count.quantity += cart_item['quantity']
+                size_count.save()
+
+            # Check if the total available stock allows the new quantity
+            size_count = ProductSize.objects.get(product=product, size=product_size)
+            total_available = size_count.quantity + (cart_item['quantity'] if cart_item else 0)
+            
+            if user_quantity > total_available:
+                # Handle the case where requested quantity exceeds available stock
+                return JsonResponse({'error': 'Requested quantity exceeds available stock'}, status=400)
+
+            # Update the cart with the new quantity
+            cart.update(cart_key=cart_key, product=product, size=product_size, quantity=user_quantity)
+
+            # Deduct the new quantity from the database
+            size_count.quantity -= user_quantity
+            size_count.save()
+
+            cart_count = cart.__len__()
+            response = JsonResponse({'count': cart_count})
+            
+            return response
+
+    else:
+        if request.LANGUAGE_CODE == 'en':
+            messages.success(request, "Time has expired (1 hour). Please refill your cart and place your order again.")
+            return redirect('home')
+        else:
+            messages.success(request, "დრო გავიდა (1სთ)! გთხოვთ ხელახლა შევსიოთ თქვენი კალათა და განახორციელოთ შეკვეთა. ")
+            return redirect('home')
+
+
     
 
 def cart_del(request, id , size):

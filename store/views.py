@@ -11,40 +11,42 @@ import os
 from django.conf import settings
 
 def home(request):
-    products = Product.objects.all().order_by('id')  # Order products by id (or another field)
-    paginator = Paginator(products, 5)  # Show 5 products per page
-    categories = Category.objects.all()
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    # products = Product.objects.all().order_by('id')  # Order products by id (or another field)
+    # paginator = Paginator(products, 5)  # Show 5 products per page
+    # categories = Category.objects.all()
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
     
 
-    # for category in categories:
-    #     if category.image:
-    #         image_exists = os.path.exists(os.path.join(settings.MEDIA_ROOT, category.image.path))
-    #         print(f"Category image path: {os.path.join(settings.MEDIA_ROOT, category.image.path)}")
-    #     else:
-    #         print("Category image does not exist")
+    # # for category in categories:
+    # #     if category.image:
+    # #         image_exists = os.path.exists(os.path.join(settings.MEDIA_ROOT, category.image.path))
+    # #         print(f"Category image path: {os.path.join(settings.MEDIA_ROOT, category.image.path)}")
+    # #     else:
+    # #         print("Category image does not exist")
+
+    # context = {
+    #     'page_obj': page_obj,
+    #     'categories': categories
+    # }
+    products = Product.objects.all()
 
     context = {
-        'page_obj': page_obj,
-        'categories': categories
+        'page_obj': products
     }
+    return render(request, 'home.html', context)
 
 
     return render(request, 'home.html', context)
 
 
-def load_products(request):
-    products = Product.objects.all()
-    paginator = Paginator(products, 5)  # Show 5 products per page
+# def load_products(request):
+#     products = Product.objects.all()
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        'page_obj': page_obj
-    }
-    return render(request, 'partials/products.html', context)
+#     context = {
+#         'page_obj': products
+#     }
+#     return render(request, 'home.html', context)
 
 
 def details(request, pk):

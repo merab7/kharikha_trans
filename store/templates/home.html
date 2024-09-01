@@ -3,12 +3,26 @@
 {% load i18n %}
 
 {% block content %}
+
+ 
+
 <section class="p-0">
+
   <div class="full-screen">
     <div class="swiper-wrapper">
       <!-- Swiper slide item -->
       <div class="swiper-slide overflow-hidden">
-        <div class="w-100 h-100" style="background-color: black">
+        <div class="w-100 h-100" style="background-color:black">
+          {% if messages %}
+          <div class="container-fluid mt-5 pt-3 position-absolute z-1 mt-8">
+              {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              {% endfor %}
+          </div>
+        {% endif %}
           <div class="p-5 position-absolute mt-18 sm-mt-28 z-1">
             <div class="mb-4">
               <!-- Instagram icon and link -->
@@ -71,10 +85,10 @@
     <ul class="shop-modern d-flex flex-nowrap overflow-x-auto gap-5">
       {% for category in categories %}
       <li class="grid-item col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4 bg-transparent flex-shrink-0 ">
-        <div class="shop-box mb-10px p-5 ">
+        <div class="shop-box mb-10px p-5 justify-content-center ">
           <div class="shop-image mb-20px position-relative ">
             <a href="{% url 'category' category.name %}">
-              <img src="{{ category.image.url }}" alt="{{ category.name }}" />
+              <img class="align-items-center" src="{{ category.image.url }}" alt="{{ category.name }}" />
               <div class="shop-overlay bg-gradient-gray-light-dark-transparent"></div>
               <div class="shop-hover d-flex justify-content-center align-items-center w-100 h-100 position-absolute top-0 start-0">
                 <div class="shop-buttons-wrap">
@@ -360,25 +374,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-$(document).ready(function() {
-    $('#products-section').on('click', '.page-link', function(e) {
-        e.preventDefault();
-        var page = $(this).data('page');
+// $(document).ready(function() {
+//     $('#products-section').on('click', '.page-link', function(e) {
+//         e.preventDefault();
+//         var page = $(this).data('page');
         
-        $.ajax({
-            url: "{% url 'load_products' %}",
-            data: {
-                'page': page
-            },
+//         $.ajax({
+//             url: "{% url 'home' %}",
+//             data: {
+//                 'page': page
+//             },
             
-            success: function(data) {
+//             success: function(data) {
               
-                $('#product-list-container').html(data);
+//                 $('#product-list-container').html(data);
               
-            }
-        });
-    });
-});
+//             }
+//         });
+//     });
+// });
 
 
 

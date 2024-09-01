@@ -70,7 +70,13 @@ def checkout(request):
     if cart_products:
         return render(request, 'ch_out.html', context)
     else:
-        return redirect('home')
+        if request.LANGUAGE_CODE == 'en':
+            messages.success(request, "Time has expired (1 hour). Please refill your cart and place your order again.")
+            return redirect('home')
+        else:
+            messages.success(request, "დრო გავიდა (1სთ)! გთხოვთ ხელახლა შევსიოთ თქვენი კალათა და განახორციელოთ შეკვეთა. ")
+            return redirect('home')
+
 
 
 
@@ -118,8 +124,7 @@ def billing(request):
 
 
 
-def payment_success(request):
-    return render(request, 'payment_success.html')
+
 
 
 
@@ -129,153 +134,163 @@ def proc_order(request):
     quantities = cart.get_quantities()
     prices = []
 
-    if quantities:
-        for key, item in quantities.items():
-            for product in cart_products:
-                if product.name == item['name']:
-                    if product.sale > 0:
-                        prices.append(product.new_price * item['quantity'])
-                    else:
-                        prices.append(product.price * item['quantity'])
-
-    if request.session['pay_methode'] == 'at_address' or request.session['pay_methode'] == 'pay_to_account' :   
-
-        my_shipping = request.session.get('my_shippInfo', None)
-        
-        if request.user.is_authenticated:
-            user = request.user
-        else:
-            user = None  # No user associated for guest checkout
-
-        if my_shipping:
-            fullname = my_shipping['fullname']
-            email = my_shipping['email']
-            total_paid = sum(prices)
-            phone = my_shipping['phone']
-            shipping_address = f"{my_shipping['city']}\n{my_shipping['address']}\n{my_shipping['add_information']}"
-
-            set_order = Order(user=user, fullname=fullname, email=email, address=shipping_address, total_paid_amount=total_paid, phone=phone)
-            set_order.save()
-
-            order_id = set_order.pk
-            order = Order.objects.get(id=order_id)
-
-            for key, value in quantities.items():
-                for pr in cart_products:
-                    if value['name'] == pr.name and value['id'] == pr.id:
-                        product_item = pr
-                        quantity = value['quantity']
-                        size = value['size']
-                        if pr.sale > 0:
-                            product_price = pr.new_price
-                        else:
-                            product_price = pr.price
-
-                        set_order_item = Order_item(order=order, product=product_item, user=user, quantity=quantity, price=product_price, size=size)
-                        set_order_item.save()
-                        #updating products database after successful purchase
-                        # for x in ProductSize.objects.all():
-                        #     if x.product == product_item and x.size == size:
-                        #         curent_qu = x.quantity
-                        #         x.quantity = curent_qu - quantity
-                        #         x.save()                               
-                                
-                                     
-                                    
-
-            # Send purchase confirmation email to the customer
-            sum_order = []
+    if cart_products:
+        if quantities:
             for key, item in quantities.items():
                 for product in cart_products:
-                    # name in email will be in georgian
-                    if request.LANGUAGE_CODE == 'ka':
-                        if product.name == item['name']:
-                            sum_item = {
-                                'em_name': product.name,
-                                'em_price': product.new_price if product.sale > 0 else item['price'],
-                                'em_size': item['size'],
-                                'em_quantity': item['quantity']
-                            }
-                            sum_order.append(sum_item)
-                    # name in email will be in english
-                    elif request.LANGUAGE_CODE == 'en':
-                        if product.name == item['name']:
+                    if product.name == item['name']:
+                        if product.sale > 0:
+                            prices.append(product.new_price * item['quantity'])
+                        else:
+                            prices.append(product.price * item['quantity'])
+
+        if request.session['pay_methode'] == 'at_address' or request.session['pay_methode'] == 'pay_to_account' :   
+
+            my_shipping = request.session.get('my_shippInfo', None)
+            
+            if request.user.is_authenticated:
+                user = request.user
+            else:
+                user = None  # No user associated for guest checkout
+
+            if my_shipping:
+                fullname = my_shipping['fullname']
+                email = my_shipping['email']
+                total_paid = sum(prices)
+                phone = my_shipping['phone']
+                shipping_address = f"{my_shipping['city']}\n{my_shipping['address']}\n{my_shipping['add_information']}"
+
+                set_order = Order(user=user, fullname=fullname, email=email, address=shipping_address, total_paid_amount=total_paid, phone=phone)
+                set_order.save()
+
+                order_id = set_order.pk
+                order = Order.objects.get(id=order_id)
+
+                for key, value in quantities.items():
+                    for pr in cart_products:
+                        if value['name'] == pr.name and value['id'] == pr.id:
+                            product_item = pr
+                            quantity = value['quantity']
+                            size = value['size']
+                            if pr.sale > 0:
+                                product_price = pr.new_price
+                            else:
+                                product_price = pr.price
+
+                            set_order_item = Order_item(order=order, product=product_item, user=user, quantity=quantity, price=product_price, size=size)
+                            set_order_item.save()
+                            #updating products database after successful purchase
+                            # for x in ProductSize.objects.all():
+                            #     if x.product == product_item and x.size == size:
+                            #         curent_qu = x.quantity
+                            #         x.quantity = curent_qu - quantity
+                            #         x.save()                               
+                                    
+                                        
+                                        
+
+                # Send purchase confirmation email to the customer
+                sum_order = []
+                for key, item in quantities.items():
+                    for product in cart_products:
+                        # name in email will be in georgian
+                        if request.LANGUAGE_CODE == 'ka':
+                            if product.name == item['name']:
                                 sum_item = {
-                                    'em_name': product.name_en,
+                                    'em_name': product.name,
                                     'em_price': product.new_price if product.sale > 0 else item['price'],
                                     'em_size': item['size'],
                                     'em_quantity': item['quantity']
                                 }
-                                sum_order.append(sum_item)            
+                                sum_order.append(sum_item)
+                        # name in email will be in english
+                        elif request.LANGUAGE_CODE == 'en':
+                            if product.name == item['name']:
+                                    sum_item = {
+                                        'em_name': product.name_en,
+                                        'em_price': product.new_price if product.sale > 0 else item['price'],
+                                        'em_size': item['size'],
+                                        'em_quantity': item['quantity']
+                                    }
+                                    sum_order.append(sum_item)            
 
-            #changing totalpaid for email if therew is  a cuponcode
-            if 'cupon' in request.session:
-                total_paid =  request.session['new_sum']           
+                #changing totalpaid for email if therew is  a cuponcode
+                if 'cupon' in request.session:
+                    total_paid =  request.session['new_sum']           
 
-            EMAIL = env('EXCAVATIO')
-            EXCAVATIOPASS = env('EMAIL_PASSWORD')
-            content = {'order_num': f"Order number: {order.pk}",  'sum': total_paid, 'shipping_address':shipping_address}
+                EMAIL = env('EXCAVATIO')
+                EXCAVATIOPASS = env('EMAIL_PASSWORD')
+                content = {'order_num': f"Order number: {order.pk}",  'sum': total_paid, 'shipping_address':shipping_address}
 
-            # Create the email message
-            
-            msg = send_order_confirmation(email, content, EMAIL, sum_order, language=request.LANGUAGE_CODE)
- 
-            # Send the email
-            with smtplib.SMTP('smtp.gmail.com', 587) as mail:
-                mail.ehlo()
-                mail.starttls()
-                mail.login(EMAIL, EXCAVATIOPASS)
-                mail.send_message(msg)
-
-            # Empty the cart
-            for key in list(request.session.keys()):
-                if key == 'session_key':
-                    del request.session[key]
-
-            
-
-
-            #update payment mehtod in the order
-            pay_method = request.session['pay_methode']
-            order.payment_methode = pay_method
-            order.save()
-
-
-            # delet cupon code form db
-            if 'cupon' in request.session:
-                entered_code = request.session['cupon']
-                codes_in_db = CuponCode.objects.filter(code=entered_code)
-
-                if codes_in_db.exists():
-
-                    order.total_paid_amount = request.session['new_sum']
-                    order.cupon_used = f"{codes_in_db[0].sale_percentage}% code was used. code is:{codes_in_db[0].code}"
-                    order.save()
-
-                    #deleting cupon_code from database after successfull checkout
-                    #for now we are not deleting it and alwo user to use it meny times
-                    #codes_in_db[0].delete()
+                # Create the email message
                 
-            # deleting session
-            if 'cupon' in request.session:
-                del request.session['cupon']
-                del request.session['new_sum']
+                msg = send_order_confirmation(email, content, EMAIL, sum_order, language=request.LANGUAGE_CODE)
+    
+                # Send the email
+                with smtplib.SMTP('smtp.gmail.com', 587) as mail:
+                    mail.ehlo()
+                    mail.starttls()
+                    mail.login(EMAIL, EXCAVATIOPASS)
+                    mail.send_message(msg)
 
-            messages.success(request, "Order Placed")
-            # redirect to gome
+                # Empty the cart
+                for key in list(request.session.keys()):
+                    if key == 'session_key':
+                        del request.session[key]
+
+                
+
+
+                #update payment mehtod in the order
+                pay_method = request.session['pay_methode']
+                order.payment_methode = pay_method
+                order.save()
+
+
+                # delet cupon code form db
+                if 'cupon' in request.session:
+                    entered_code = request.session['cupon']
+                    codes_in_db = CuponCode.objects.filter(code=entered_code)
+
+                    if codes_in_db.exists():
+
+                        order.total_paid_amount = request.session['new_sum']
+                        order.cupon_used = f"{codes_in_db[0].sale_percentage}% code was used. code is:{codes_in_db[0].code}"
+                        order.save()
+
+                        #deleting cupon_code from database after successfull checkout
+                        #for now we are not deleting it and alwo user to use it meny times
+                        #codes_in_db[0].delete()
+                    
+                # deleting session
+                if 'cupon' in request.session:
+                    del request.session['cupon']
+                    del request.session['new_sum']
+
+                messages.success(request, "Order Placed")
+                # redirect to gome
+                return redirect('home')
+            else:
+                messages.error(request, "Shipping information is missing.")
+                return redirect('checkout')
+        
+        # after implementing card payment i should update this part 
+        else:
+            #if porchuse is not ok that regenerate item size quantity
+            for x in ProductSize.objects.all():
+                if x.product == product_item and x.size == size:
+                    curent_qu = x.quantity
+                    x.quantity = curent_qu + quantity
+                    x.save()                               
+        
+            return redirect('home')
+    else:
+        if request.LANGUAGE_CODE == 'en':
+            messages.success(request, "Time has expired (1 hour). Please refill your cart and place your order again.")
             return redirect('home')
         else:
-            messages.error(request, "Shipping information is missing.")
-            return redirect('checkout')
-    
-    # after implementing card payment i should update this part 
-    else:
-        #if porchuse is not ok that regenerate item size quantity
-        for x in ProductSize.objects.all():
-            if x.product == product_item and x.size == size:
-                curent_qu = x.quantity
-                x.quantity = curent_qu + quantity
-                x.save()                               
-    
-        return redirect('home')
+            messages.success(request, "დრო გავიდა (1სთ)! გთხოვთ ხელახლა შევსიოთ თქვენი კალათა და განახორციელოთ შეკვეთა. ")
+            return redirect('home')
+
+
     

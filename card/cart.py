@@ -1,16 +1,24 @@
-from store.models import Product
+from store.models import Product, ProductSize
+from datetime import datetime, timedelta
 
-class Cart():
+class Cart:
     def __init__(self, request) -> None:
         self.session = request.session
-        #if user exists and session_key exists get this key 
-        cart = self.session.get('session_key')
+        if 'cart' not in self.session:
+            self.session['cart'] = {}
+            self.session['cart_last_updated'] = datetime.now().isoformat()
+        
+        self.cart = self.session['cart']
+        self.last_updated = datetime.fromisoformat(self.session['cart_last_updated'])
+        
+        # Clear the cart if more than 60 minutes have passed since the last update
+        if datetime.now() - self.last_updated > timedelta(minutes=60):
+            self.clear_cart()
 
-        #if user is new
-        if 'session_key' not in request.session:
-            cart = self.session['session_key'] = {}
-
-        self.cart = cart 
+    def update_timestamp(self):
+        self.last_updated = datetime.now()
+        self.session['cart_last_updated'] = self.last_updated.isoformat()
+        self.session.modified = True
 
     def add(self, product=None, size=int(), quantity=int()):
         product_id = int(product.id)
@@ -24,12 +32,13 @@ class Cart():
 
         # Check if the product and size combination is already in the cart
         if cart_key in self.cart:
-           pass
+            # Update the quantity if it already exists
+            self.cart[cart_key]['quantity'] += quantity
         else:
             # If it doesn't exist, add it to the cart
-            self.cart[cart_key] = {'id': int(product_id), 'name': name, 'price': price, 'size': size, 'quantity': quantity}
-
-        self.session.modified = True
+            self.cart[cart_key] = {'id': product_id, 'name': name, 'price': price, 'size': size, 'quantity': quantity}
+        
+        self.update_timestamp()
 
     def update(self, cart_key=None, product=None, size=int(), quantity=int()):
         product_id = int(product.id)
@@ -37,25 +46,52 @@ class Cart():
         price = int(product.price)
         size = str(size)
         quantity = quantity
-        cart_key = cart_key
         new_cart_key = f"{product_id}_{size}"
         
-        #delete existing item
-        self.cart.pop(cart_key)
-        #adding_new 
-        self.cart[new_cart_key] = {'id': int(product_id), 'name': name, 'price': price, 'size': size, 'quantity': quantity}
-        self.session.modified = True
+        # Delete existing item
+        self.cart.pop(cart_key, None)
+        # Add new item
+        self.cart[new_cart_key] = {'id': product_id, 'name': name, 'price': price, 'size': size, 'quantity': quantity}
+        
+        self.update_timestamp()
 
     def delete(self, cart_key=None):
-        cart_key=cart_key
+        item_details = self.get_item_details(cart_key)
+        if item_details:
+            # Remove the item from the cart
+            self.cart.pop(cart_key)
+            self.session.modified = True
+        return item_details  # Return details of the deleted item
 
-        #delete selected item from the cart
-        self.cart.pop(cart_key)
+    def get_item_details(self, cart_key):
+        return self.cart.get(cart_key, None)
 
+    def clear_cart(self):
+        # Restore quantities to the database
+        self.restore_quantities()
+        # Clear the cart and reset timestamp
+        self.cart = {}
+        self.session['cart'] = {}
+        self.update_timestamp()
+
+    def restore_quantities(self):
+        for cart_key, item in self.cart.items():
+            product_id = item['id']
+            size = item['size']
+            quantity = item['quantity']
+
+            product = Product.objects.get(id=product_id)
+            size_count = ProductSize.objects.filter(product=product)
+
+            for item in size_count:
+                if item.size == size:
+                    item.quantity += quantity
+                    item.save()
+
+        # After restoring quantities, empty the cart
+        self.cart = {}
+        self.session['cart'] = {}
         self.session.modified = True
-
-
-
 
     def __len__(self):
         return len(self.cart)
@@ -70,8 +106,7 @@ class Cart():
         return products
 
     def get_quantities(self):
-        quantities = self.cart
-        return quantities      
+        return self.cart
 
     def contains(self, product, size):
         cart_key = f"{product.id}_{size}"
