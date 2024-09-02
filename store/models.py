@@ -6,7 +6,7 @@ from django.core.files.base import ContentFile
 class Category(models.Model):
     name = models.CharField(max_length=200, blank=False, null=True)
     name_en = models.CharField(max_length=200, blank=False, null=True)
-    image = models.ImageField(upload_to='categories/', blank=False, null=True)
+    image = models.ImageField(blank=False, null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -41,9 +41,9 @@ class Product(models.Model):
     cn_en = models.CharField(max_length=100, blank=False, null=True)
     description = models.CharField(max_length=250, blank=False, null=True)
     description_en = models.CharField(max_length=250, blank=False, null=True)
-    image = models.ImageField(upload_to='products/')
-    model_image_1 = models.ImageField(upload_to='products/', blank=True, null=True)
-    model_image_2 = models.ImageField(upload_to='products/', blank=True, null=True)
+    image = models.ImageField()
+    model_image_1 = models.ImageField( blank=True, null=True)
+    model_image_2 = models.ImageField(blank=True, null=True)
     sale = models.IntegerField(default=0)
     new_price = models.DecimalField(default=0, decimal_places=2, max_digits=6)
 
