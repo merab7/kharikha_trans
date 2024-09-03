@@ -66,7 +66,7 @@ msgstr "ზომა"
 #: card/templates/cart_sum.html:78 payment/templates/billing.html:12
 #: payment/templates/billing.html:42 payment/templates/ch_out.html:11
 msgid "Edit"
-msgstr "შეცვალე"
+msgstr "შეცვლა"
 
 #: card/templates/cart_sum.html:88
 msgid "Confirm Delete"
