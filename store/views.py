@@ -72,10 +72,9 @@ def details(request, pk):
 def category(request, cat_name):
     category = Category.objects.get(name=cat_name)
     products = Product.objects.filter(Category=category)
-    paginator = Paginator(products, 5)  # Show 5 products per page
 
     page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    page_obj = products
 
     context = {
         'page_obj': page_obj,
