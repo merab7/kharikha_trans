@@ -145,6 +145,7 @@ def proc_order(request):
                             prices.append(product.price * item['quantity'])
 
         if request.session['pay_methode'] == 'at_address' or request.session['pay_methode'] == 'pay_to_account' :   
+       
 
             my_shipping = request.session.get('my_shippInfo', None)
             
