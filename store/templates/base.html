@@ -222,7 +222,12 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    {% trans "EN" %}
+                  {% if request.LANGUAGE_CODE == 'ka' %}
+                   KA
+                  {% else %}
+                   EN
+                  {% endif %}
+
                   </button>
                   <ul class="dropdown-menu   text-center ">
                     <li>
