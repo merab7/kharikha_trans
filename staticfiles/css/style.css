@@ -19386,5 +19386,9 @@ margin-bottom: 200px;
 }
 
 .product-fixed {
-     height: 450px;
+     height: 430px;
+}
+
+.product-fixed-detail {
+  height: 500px;
 }
