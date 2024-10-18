@@ -27,7 +27,7 @@
             <div class="mb-4">
               <!-- Instagram icon and link -->
               <div class="mb-2">
-                <a href="https://www.instagram.com/your_instagram_page/" target="_blank">
+                <a href="https://www.instagram.com/jerseys.ge/" target="_blank">
                   <i class="fab fa-instagram-square fa-3x" style="color: #fefafa"></i>
                 </a>
               </div>
@@ -145,7 +145,7 @@
               <div class="shop-box mb-10px p-5">
                 <div class="shop-image mb-20px position-relative">
                   <a href="{% url 'details' product.id %}">
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                    <img class="product-fixed" src="{{ product.image.url }}" alt="{{ product.name }}" />
                     <div class="shop-overlay bg-gradient-gray-light-dark-transparent"></div>
                     {% if product.sale > 0 %}
                     <div class="sale-percentage position-absolute top-0 start-0 bg-danger text-white px-2 py-1">
@@ -342,9 +342,7 @@
           <div class="col icon-with-text-style-09">
               <div class="feature-box">
                   <div >
-                      <i  class="bi bi-facebook icon-large text-black">   
-                        </a>
-                      </i>
+                      <i  class="bi bi-facebook icon-large text-black"></i>
                       <div class="feature-box-icon-hover bg-base-color rounded-circle"></div>
                   </div>
                   <a href="https://www.facebook.com/Harihacom" target="_blank" class="feature-box-content last-paragraph-no-margin">
@@ -357,14 +355,12 @@
           <div class="col icon-with-text-style-09">
             <div class="feature-box">
                 <div>
-                    <i class="bi bi-instagram icon-large pointer text-black"></i>
-                
+                    <i class="bi bi-instagram icon-large  text-black"></i>
+                    <div class="feature-box-icon-hover bg-base-color rounded-circle"></div>
                 </div>
-                <div class="feature-box-content last-paragraph-no-margin">
-                    <span class="d-block fw-700 text-dark-gray mb-5px fs-18">Instagram</span>
-                    <a href="https://www.instagram.com/your_instagram_page/" target="_blank"></a>
-                    
-                </div>
+                    <a href="https://www.instagram.com/jerseys.ge/" target="_blank">
+                      <span class="d-block fw-700 text-dark-gray mb-5px fs-18">Instagram</span>
+                    </a>
             </div>
         </div>
       </div>
