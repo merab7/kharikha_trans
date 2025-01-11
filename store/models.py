@@ -16,10 +16,10 @@ class Category(models.Model):
             max_size = (300, 300)
             img.thumbnail(max_size, Image.LANCZOS)
 
-            image_format = img.format  # Get the format of the image
+            image_format = img.format  
             output = io.BytesIO()
             
-            # Use the original format for saving, default to JPEG if not supported
+            
             save_format = image_format if image_format in ['JPEG', 'PNG', 'GIF', 'WEBP'] else 'JPEG'
             img.save(output, format=save_format, quality=85)
             output.seek(0)

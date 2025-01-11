@@ -62,7 +62,7 @@
                   </td>
                 </tr>
 
-                <!-- Delete Confirmation Modal -->
+                <!-- delee Confirmation Modal -->
                 <div class="modal fade" id="confirmDeleteModal{{ item.id }}" tabindex="-1"
                   aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
@@ -197,7 +197,7 @@ $("#apply").click(function () {
                 $("#error").text('');
                 $("#success_text").text(`${json.percetage}% sale has applied`);
                 document.getElementById("cupon").disabled = true;
-                // Update session values
+                // Udate session values
                 request.session.cupon = cuponCode;
                 request.session.new_sum = json.new_sum;
             }
@@ -222,7 +222,7 @@ function payAtAddress() {
             'shipping_option': 'at_address'
         },
         success: function(response) {
-            // Handle success response
+            // success response
         },
         error: function(xhr, status, error) {
             alert("An error occurred: " + error);
@@ -240,7 +240,7 @@ function payToAccount() {
             'shipping_option': 'pay_to_account'
         },
         success: function(response) {
-            // Handle success response
+            // handle success response
         },
         error: function(xhr, status, error) {
             alert("An error occurred: " + error);

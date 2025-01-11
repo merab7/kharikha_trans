@@ -11,7 +11,7 @@ class Cart:
         self.cart = self.session['cart']
         self.last_updated = datetime.fromisoformat(self.session['cart_last_updated'])
         
-        # Clear the cart if more than 60 minutes have passed since the last update
+        # clear the cart if more than 60 minutes have passed since the last update
         if datetime.now() - self.last_updated > timedelta(minutes=60):
             self.clear_cart()
 
@@ -27,15 +27,15 @@ class Cart:
         size = str(size)
         quantity = quantity
         
-        # Generate a unique key for the product and size combination
+        # generate a unique key fo the product and size combination
         cart_key = f"{product_id}_{size}"
 
-        # Check if the product and size combination is already in the cart
+        # check if the product and size combination is already in the cart
         if cart_key in self.cart:
-            # Update the quantity if it already exists
+            # update the quantity if it already exists
             self.cart[cart_key]['quantity'] += quantity
         else:
-            # If it doesn't exist, add it to the cart
+            # if it doesn't exist, add it to the cart
             self.cart[cart_key] = {'id': product_id, 'name': name, 'price': price, 'size': size, 'quantity': quantity}
         
         self.update_timestamp()
@@ -48,9 +48,9 @@ class Cart:
         quantity = quantity
         new_cart_key = f"{product_id}_{size}"
         
-        # Delete existing item
+        # delete existing item
         self.cart.pop(cart_key, None)
-        # Add new item
+        # add new item
         self.cart[new_cart_key] = {'id': product_id, 'name': name, 'price': price, 'size': size, 'quantity': quantity}
         
         self.update_timestamp()
@@ -58,18 +58,18 @@ class Cart:
     def delete(self, cart_key=None):
         item_details = self.get_item_details(cart_key)
         if item_details:
-            # Remove the item from the cart
+            # remove the item from the cart
             self.cart.pop(cart_key)
             self.session.modified = True
-        return item_details  # Return details of the deleted item
+        return item_details  # return details of the deleted item
 
     def get_item_details(self, cart_key):
         return self.cart.get(cart_key, None)
 
     def clear_cart(self):
-        # Restore quantities to the database
+        # restore quantities to the database
         self.restore_quantities()
-        # Clear the cart and reset timestamp
+        # clear the cart and reset timestamp
         self.cart = {}
         self.session['cart'] = {}
         self.update_timestamp()
@@ -88,7 +88,7 @@ class Cart:
                     item.quantity += quantity
                     item.save()
 
-        # After restoring quantities, empty the cart
+        # after restoring quantities, empty the cart
         self.cart = {}
         self.session['cart'] = {}
         self.session.modified = True
@@ -97,10 +97,10 @@ class Cart:
         return len(self.cart)
 
     def get_products(self):
-        # Extract product IDs from the keys in the cart
+        # extract product IDs from the keys in the cart
         product_ids = [key.split('_')[0] for key in self.cart.keys()]
         
-        # Retrieve products from the database based on the extracted product IDs
+        # retrieve products from the database based on the extracted product IDs
         products = Product.objects.filter(id__in=product_ids)
     
         return products

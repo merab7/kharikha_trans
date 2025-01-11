@@ -19,7 +19,7 @@ def checkout(request):
     quantities = cart.get_quantities()
     prices = []
     
-    # Determine if the user is authenticated
+    # see if the user is authenticated
     if request.user.is_authenticated:
         user_shipping_info = ShippingAddress.objects.get(user=request.user)
         shippingInfo_form = ShippingInfo(instance=user_shipping_info)
@@ -27,7 +27,7 @@ def checkout(request):
         user_shipping_info = None
         shippingInfo_form = ShippingInfo()
 
-    # Calculate total prices
+    # calculate total prices
     if quantities:
         for key, item in quantities.items():
             for product in cart_products:
@@ -44,7 +44,7 @@ def checkout(request):
             if request.user.is_authenticated:
                 shipping_info.user = request.user
             shipping_info.save()
-            # Save the shipping info in the session for guests
+            # sav shipping info in the session for guests
             if not request.user.is_authenticated:
                 request.session['shipping_info'] = shippingInfo_form.cleaned_data
             return render(request, 'billing.html')
@@ -92,7 +92,7 @@ def billing(request):
         info_list = [x for x in shippingInfo if x in ("fullname", "email", "address", "city", "phone",  "per_id", "add_information") and len(x)>0]
         shipping_sum = {f'{x.capitalize()}': shippingInfo[x] for x in info_list}
 
-        # Save shipping info in session for guest users
+        # sve shipping info in session for guest users
         request.session['my_shippInfo'] = shippingInfo
 
         if quantities:
@@ -152,7 +152,7 @@ def proc_order(request):
             if request.user.is_authenticated:
                 user = request.user
             else:
-                user = None  # No user associated for guest checkout
+                user = None  # no user associated for guest checkout
 
             if my_shipping:
                 fullname = my_shipping['fullname']
@@ -190,7 +190,7 @@ def proc_order(request):
                                         
                                         
 
-                # Send purchase confirmation email to the customer
+                # send purchase confirmation email to the customer
                 sum_order = []
                 for key, item in quantities.items():
                     for product in cart_products:
@@ -223,18 +223,18 @@ def proc_order(request):
                 EXCAVATIOPASS = env('EMAIL_PASSWORD')
                 content = {'order_num': f"Order number: {order.pk}",  'sum': total_paid, 'shipping_address':shipping_address}
 
-                # Create the email message
+                # create the email message
                 
                 msg = send_order_confirmation(email, content, EMAIL, sum_order, language=request.LANGUAGE_CODE)
     
-                # Send the email
+                # send the email
                 with smtplib.SMTP('smtp.gmail.com', 587) as mail:
                     mail.ehlo()
                     mail.starttls()
                     mail.login(EMAIL, EXCAVATIOPASS)
                     mail.send_message(msg)
 
-                # Empty the cart
+                # empty the cart
                 for key in list(request.session.keys()):
                     if key == 'session_key':
                         del request.session[key]

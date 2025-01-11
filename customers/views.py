@@ -51,9 +51,9 @@ def signup_view(request):
                         'domain': current_site.domain,
                         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                         'token': email_verification_token.make_token(user),
-                        'language_code': request.LANGUAGE_CODE,  # Assuming you have language_code available
+                        'language_code': request.LANGUAGE_CODE,  
                     })
-            message_text = strip_tags(message_html)  # Create a plain text version of the email
+            message_text = strip_tags(message_html)  # text version of the email
             to_email = form.cleaned_data.get('email')
             email = EmailMultiAlternatives(
             subject=mail_subject,
@@ -62,7 +62,7 @@ def signup_view(request):
             to=[to_email],
             )
             email.attach_alternative(message_html, "text/html") 
-            # email.content_subtype = 'html'  # Ensure content type is HTML
+            # email.content_subtype = 'html' 
             email.send()
             
             return render(request, 'account_activation_sent.html')
@@ -112,7 +112,7 @@ def update_password(request):
 class CustomLoginView(LoginView):
 
     def get_success_url(self):
-        # Redirect to the URL stored in the next parameter
+        # rdirect to the URL stored in the next parameter
         next_url = self.request.GET.get('next', '/')
         return next_url
 

@@ -25,7 +25,7 @@ def cart_sum(request):
 
     summary = sum(prices)
 
-    # Retrieve coupon code and new_sum from session
+    # retrieve coupon code and new_sum from session
     cupon_code = request.session.get('cupon')
     if cupon_code:
         coupon = CuponCode.objects.filter(code=cupon_code).first()
@@ -35,7 +35,7 @@ def cart_sum(request):
     context = {
         'cart_products': cart_products,
         'quantities': quantities,
-        'summary': new_sum if new_sum else summary,  # Use new_sum if coupon applied, otherwise regular summary
+        'summary': new_sum if new_sum else summary,  # use new_sum if coupon applied, otherwise regular summary
     }
 
     return render(request, 'cart_sum.html', context)
@@ -162,26 +162,26 @@ def update(request):
             product_size = request.POST.get('product_size')
             cart_key = str(request.POST.get('cart_key'))
 
-            # Retrieve the current item details from the cart
+            # retrieve the current item details from the cart
             cart_item = cart.get_item_details(cart_key)
             if cart_item:
-                # Restore the quantity back to the database before updating
+                # restore the quantity back to the database before updating
                 size_count = ProductSize.objects.get(product=product, size=cart_item['size'])
                 size_count.quantity += cart_item['quantity']
                 size_count.save()
 
-            # Check if the total available stock allows the new quantity
+            # check if the total available stock allows the new quantity
             size_count = ProductSize.objects.get(product=product, size=product_size)
             total_available = size_count.quantity + (cart_item['quantity'] if cart_item else 0)
             
             if user_quantity > total_available:
-                # Handle the case where requested quantity exceeds available stock
+                # handle the case where requested quantity exceeds available stock
                 return JsonResponse({'error': 'Requested quantity exceeds available stock'}, status=400)
 
-            # Update the cart with the new quantity
+            # udate the cart with the new quantity
             cart.update(cart_key=cart_key, product=product, size=product_size, quantity=user_quantity)
 
-            # Deduct the new quantity from the database
+            # deduct the new quantity from the database
             size_count.quantity -= user_quantity
             size_count.save()
 
@@ -225,7 +225,7 @@ def cart_del(request, id , size):
     cart_key = f"{id}_{size}"
     cart.delete(cart_key=cart_key)
 
-    # Check if cart is empty, then clear coupon code from session
+    # check if cart is empty, then clear coupon code from session
     if cart.is_empty():
         if 'cupon' in request.session:
             del request.session['cupon']
@@ -282,7 +282,7 @@ def cupon_code(request):
 def pay_at_address(request):
 
     option = request.GET.get('shipping_option')
-       # Handle the request data
+       # handle the request data
 
 
 

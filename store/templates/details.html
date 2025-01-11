@@ -112,12 +112,12 @@
 
 <script>
   $(document).ready(function () {
-    var productInCart = false; // Assume product is not in the cart by default
+    var productInCart = false; 
 
     function checkIfInCart() {
       $.ajax({
         type: "POST",
-        url: "{% url 'is_in_cart' %}", // URL for checking if product is in cart
+        url: "{% url 'is_in_cart' %}", 
         data: {
           product_id: $("#add-to-cart").val(),
           product_size: $("input[name='size']:checked").val(),
@@ -136,11 +136,11 @@
             $("#in-cart-message").hide();
             $(".qty-minus").prop("disabled", false);
             $(".qty-plus").prop("disabled", false);
-            validateAddToCart(); // Enable the buttons if not in the cart
+            validateAddToCart(); 
           }
         },
         error: function (xhr, errmsg, err) {
-          // Handle error
+         //errors
         },
       });
     }
@@ -181,12 +181,13 @@
         },
         success: function (json) {
           $("#in_stock").text(json.max_quantity);
-          $("#quantity").val(1); // Reset quantity to 1 when size changes
+          // reset quantity to 1 when size changes
+          $("#quantity").val(1); 
           checkIfInCart();
           validateAddToCart();
         },
         error: function (xhr, errmsg, err) {
-          // Handle error
+          //errors
         },
       });
     });
@@ -232,16 +233,16 @@
           } else {
             $("#cart_count").html(json.count);
             $("#quantity").val(1);
-            location.reload(); // Refresh the page after successful add to cart
+            location.reload(); 
           }
         },
         error: function (xhr, errmsg, err) {
-          // Handle error
+          // errors
         },
       });
     });
 
-    // Initial checks when the page loads
+
     checkIfInCart();
     $("input[name='size']:checked").trigger('change');
   });

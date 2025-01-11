@@ -3,7 +3,7 @@ import os
 from django.utils.translation import gettext_lazy as _
 import dj_database_url
 import environ
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -30,7 +30,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = ['https://kharikhatrans-production.up.railway.app', 'https://jerseys.ge', 'https://www.jerseys.ge', ]
 
-# Application definition
+# application definition
 
 INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
@@ -82,7 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # Customs
+                # customs
                 'store.context_processors.category_names',
                 'card.context_processors.cart',
                 'store.context_processors.quantity_proc',
@@ -94,7 +94,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'gecom.wsgi.application'
 
 
-# Database
+# database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
@@ -111,7 +111,7 @@ if env.bool('PRODUCTION') or POSTGRES_LOCALLY:
 
 
 
-# Password validation
+# password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -175,7 +175,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-# WhiteNoise configuration
+# whiteNoise configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"

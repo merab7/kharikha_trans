@@ -11,10 +11,10 @@ def send_order_confirmation(email, content, EMAIL, sum_order, language):
 
    
 
-    # Activate the selected language
+    # activate the selected language
     translation.activate(language)
 
-     # Construct the message content for order items
+     # construct the message content for order items
     if language == 'en':
         message_content = '\n\n'.join(
             [f"Item: {x['em_name']}\nPrice: ₾ {x['em_price']}\nSize: {x['em_size']}\nQuantity: {x['em_quantity']}"
@@ -113,7 +113,7 @@ def send_order_confirmation(email, content, EMAIL, sum_order, language):
     """
     msg.attach(MIMEText(body, 'html', 'utf-8'))
 
-    # Deactivate the language after use
+    # deactivate the language after use
     translation.deactivate()
 
     return msg

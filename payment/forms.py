@@ -62,7 +62,7 @@ class PaymentForm(forms.Form):
     def clean_expiration(self):
         expiration = self.cleaned_data.get('expiration')
         if expiration:
-            current_year = datetime.now().year % 100  # Get last two digits of current year
+            current_year = datetime.now().year % 100 
             current_month = datetime.now().month
 
             exp_month, exp_year = map(int, expiration.split('/'))

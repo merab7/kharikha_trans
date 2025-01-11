@@ -35,12 +35,12 @@ class Order(models.Model):
     email = models.EmailField(max_length=200)
     address = models.TextField(max_length=150000)
     total_paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    date = models.DateTimeField(auto_now_add=True)  # Automatically set on creation
+    date = models.DateTimeField(auto_now_add=True) 
     phone = models.CharField(max_length=200)
     cupon_used = models.CharField(max_length=200, default="Cupon code was not used", null=True)
     payment_methode = models.CharField(max_length=200, null=True)
     shipped = models.BooleanField(default=False)
-    shipped_date = models.DateTimeField(blank=True, null=True)  # Optional field for tracking shipment date
+    shipped_date = models.DateTimeField(blank=True, null=True) 
 
     def __str__(self):
         return f'Order by {self.fullname} on {self.date}'

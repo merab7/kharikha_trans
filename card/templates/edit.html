@@ -131,11 +131,11 @@
         },
         success: function (response) {
           $("#in_stock").text(response.quantity_in_db);
-          $("#quantity").val(Math.min(response.quantity_in_db, 1)); // reset quantity to 1 or max available
+          $("#quantity").val(Math.min(response.quantity_in_db, 1)); 
           validateUpdate();
         },
         error: function (xhr, errmsg, err) {
-          // Handle error
+          // handle error
         },
       });
     });
@@ -179,7 +179,7 @@
           window.location.href = "{% url 'cart_sum' %}";
         },
         error: function (xhr, errmsg, err) {
-          // Handle error
+          // handle error
         },
       });
     });
